@@ -1,4 +1,4 @@
-# unitree_sdk2py
+# unitree_sdk2_python
 Python interface for unitree sdk2
 
 # Installation
@@ -7,13 +7,13 @@ Python interface for unitree sdk2
 - cyclonedds == 0.10.2
 - numpy
 - opencv-python
-## Install unitree_sdk2py
+## Install unitree_sdk2_python
 Execute the following commands in the terminal:
 ```bash
 cd ~
 sudo apt install python3-pip
-git clone https://github.com/unitreerobotics/unitree_sdk2py.git
-cd unitree_sdk2py
+git clone https://github.com/unitreerobotics/unitree_sdk2_python.git
+cd unitree_sdk2_python
 pip3 install -e .
 ```
 ## FAQ
@@ -30,9 +30,9 @@ cd cyclonedds && mkdir build install && cd build
 cmake .. -DCMAKE_INSTALL_PREFIX=../install
 cmake --build . --target install
 ```
-Enter the unitree_sdk2py directory, set `CYCLONEDDS_HOME` to the path of the cyclonedds you just compiled, and then install unitree_sdk2py.
+Enter the unitree_sdk2_python directory, set `CYCLONEDDS_HOME` to the path of the cyclonedds you just compiled, and then install unitree_sdk2_python.
 ```bash
-cd ~/unitree_sdk2py
+cd ~/unitree_sdk2_python
 export CYCLONEDDS_HOME="~/cyclonedds/install"
 pip3 install -e .
 ```

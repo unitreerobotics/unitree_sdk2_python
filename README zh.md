@@ -1,4 +1,4 @@
-# unitree_sdk2py
+# unitree_sdk2_python
 unitree_sdk2 python 接口
 
 # 安装
@@ -8,13 +8,13 @@ unitree_sdk2 python 接口
 - numpy
 - opencv-python
 
-## 安装 unitree_sdk2py
+## 安装 unitree_sdk2_python
 在终端中执行：
 ```bash
 cd ~
 sudo apt install python3-pip
-git clone https://github.com/unitreerobotics/unitree_sdk2py.git
-cd unitree_sdk2py
+git clone https://github.com/unitreerobotics/unitree_sdk2_python.git
+cd unitree_sdk2_python
 pip3 install -e .
 ```
 ## FAQ
@@ -30,9 +30,9 @@ cd cyclonedds && mkdir build install && cd build
 cmake .. -DCMAKE_INSTALL_PREFIX=../install
 cmake --build . --target install
 ```
-进入 unitree_sdk2py 目录，设置 `CYCLONEDDS_HOME` 为刚刚编译好的 cyclonedds 所在路径，再安装unitree_sdk2py
+进入 unitree_sdk2_python 目录，设置 `CYCLONEDDS_HOME` 为刚刚编译好的 cyclonedds 所在路径，再安装 unitree_sdk2_python
 ```bash
-cd ~/unitree_sdk2py
+cd ~/unitree_sdk2_python
 export CYCLONEDDS_HOME="~/cyclonedds/install"
 pip3 install -e .
 ```
