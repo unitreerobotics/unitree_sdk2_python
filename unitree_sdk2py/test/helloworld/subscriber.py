@@ -1,9 +1,9 @@
 import time
 
-from unitree_sdk2py.core.channel import ChannelSubscriber, ChannelFactortyInitialize
+from unitree_sdk2py.core.channel import ChannelSubscriber, ChannelFactoryInitialize
 from helloworld import HelloWorld
 
-ChannelFactortyInitialize()
+ChannelFactoryInitialize()
 
 sub = ChannelSubscriber("topic", HelloWorld)
 sub.Init()

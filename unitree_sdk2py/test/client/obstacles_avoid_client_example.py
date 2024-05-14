@@ -1,11 +1,11 @@
 import time
 import os
 
-from unitree_sdk2py.core.channel import ChannelFactortyInitialize
+from unitree_sdk2py.core.channel import ChannelFactoryInitialize
 from unitree_sdk2py.go2.obstacles_avoid.obstacles_avoid_client import ObstaclesAvoidClient
 
 if __name__ == "__main__":
-    ChannelFactortyInitialize(0, "enp3s0")
+    ChannelFactoryInitialize(0, "enp3s0")
 
     client = ObstaclesAvoidClient()
     client.SetTimeout(3.0)

@@ -1,9 +1,9 @@
 import time
-from unitree_sdk2py.core.channel import ChannelFactortyInitialize
+from unitree_sdk2py.core.channel import ChannelFactoryInitialize
 from unitree_sdk2py.go2.sport.sport_client import SportClient, PathPoint, SPORT_PATH_POINT_SIZE
 
 if __name__ == "__main__":
-    ChannelFactortyInitialize(0, "enp2s0")
+    ChannelFactoryInitialize(0, "enp2s0")
     client = SportClient()
     client.SetTimeout(10.0)
     client.Init()

@@ -1,9 +1,9 @@
 import time
 
-from unitree_sdk2py.core.channel import ChannelPublisher, ChannelFactortyInitialize
+from unitree_sdk2py.core.channel import ChannelPublisher, ChannelFactoryInitialize
 from helloworld import HelloWorld
 
-ChannelFactortyInitialize()
+ChannelFactoryInitialize()
 
 pub = ChannelPublisher("topic", HelloWorld)
 pub.Init()

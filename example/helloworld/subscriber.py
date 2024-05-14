@@ -1,11 +1,11 @@
 import time
 
-from unitree_sdk2py.core.channel import ChannelSubscriber, ChannelFactortyInitialize
+from unitree_sdk2py.core.channel import ChannelSubscriber, ChannelFactoryInitialize
 from user_data import *
 
 
 if __name__ == "__main__":
-    ChannelFactortyInitialize()
+    ChannelFactoryInitialize()
     # Create a subscriber to subscribe the data defined in UserData class
     sub = ChannelSubscriber("topic", UserData)
     sub.Init()

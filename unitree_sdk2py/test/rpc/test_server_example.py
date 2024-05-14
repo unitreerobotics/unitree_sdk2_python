@@ -1,7 +1,7 @@
 import time
 import json
 
-from unitree_sdk2py.core.channel import ChannelFactortyInitialize
+from unitree_sdk2py.core.channel import ChannelFactoryInitialize
 from unitree_sdk2py.rpc.server import Server
 
 from test_api import *
@@ -33,7 +33,7 @@ class TestServer(Server):
 
 if __name__ ==  "__main__":
     # initialize channel factory.
-    ChannelFactortyInitialize(0)
+    ChannelFactoryInitialize(0)
 
     # create server
     server = TestServer()
