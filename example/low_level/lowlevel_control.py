@@ -1,8 +1,8 @@
 import time
 import sys
 
-from unitree_sdk2py.core.channel import ChannelPublisher, ChannelFactortyInitialize
-from unitree_sdk2py.core.channel import ChannelSubscriber, ChannelFactortyInitialize
+from unitree_sdk2py.core.channel import ChannelPublisher, ChannelFactoryInitialize
+from unitree_sdk2py.core.channel import ChannelSubscriber, ChannelFactoryInitialize
 from unitree_sdk2py.idl.default import unitree_go_msg_dds__LowCmd_
 from unitree_sdk2py.idl.unitree_go.msg.dds_ import LowCmd_
 from unitree_sdk2py.utils.crc import CRC
@@ -14,9 +14,9 @@ crc = CRC()
 if __name__ == '__main__':
 
     if len(sys.argv)>1:
-        ChannelFactortyInitialize(0, sys.argv[1])
+        ChannelFactoryInitialize(0, sys.argv[1])
     else:
-        ChannelFactortyInitialize(0)
+        ChannelFactoryInitialize(0)
     # Create a publisher to publish the data defined in UserData class
     pub = ChannelPublisher("rt/lowcmd", LowCmd_)
     pub.Init()

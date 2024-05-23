@@ -282,9 +282,9 @@ class ChannelSubscriber:
         return self.__channel.Read(timeout)
 
 """
-" function ChannelFactortyInitialize. used to intialize channel everenment.
+" function ChannelFactoryInitialize. used to intialize channel everenment.
 """
-def ChannelFactortyInitialize(id: int = 0, networkInterface: str = None):
+def ChannelFactoryInitialize(id: int = 0, networkInterface: str = None):
     factory = ChannelFactory()
     if not factory.Init(id, networkInterface):
         raise Exception("channel factory init error.")

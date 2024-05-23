@@ -1,6 +1,6 @@
 import time
 import sys
-from unitree_sdk2py.core.channel import ChannelSubscriber, ChannelFactortyInitialize
+from unitree_sdk2py.core.channel import ChannelSubscriber, ChannelFactoryInitialize
 
 from unitree_sdk2py.idl.default import unitree_go_msg_dds__SportModeState_
 from unitree_sdk2py.idl.unitree_go.msg.dds_ import SportModeState_
@@ -15,7 +15,7 @@ def HighStateHandler(msg: SportModeState_):
 
 
 if __name__ == "__main__":
-    ChannelFactortyInitialize(0, "enp3s0")
+    ChannelFactoryInitialize(0, "enp3s0")
     sub = ChannelSubscriber("rt/sportmodestate", SportModeState_)
     sub.Init(HighStateHandler, 10)
 

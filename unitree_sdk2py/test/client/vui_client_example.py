@@ -1,11 +1,11 @@
 import time
 import os
 
-from unitree_sdk2py.core.channel import ChannelFactortyInitialize
+from unitree_sdk2py.core.channel import ChannelFactoryInitialize
 from unitree_sdk2py.go2.vui.vui_client import VuiClient
 
 if __name__ == "__main__":
-    ChannelFactortyInitialize(0, "enp2s0")
+    ChannelFactoryInitialize(0, "enp2s0")
 
     client = VuiClient()
     client.SetTimeout(3.0)

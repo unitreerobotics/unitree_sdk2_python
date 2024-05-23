@@ -1,11 +1,11 @@
 import time
 
-from unitree_sdk2py.core.channel import ChannelPublisher, ChannelFactortyInitialize
+from unitree_sdk2py.core.channel import ChannelPublisher, ChannelFactoryInitialize
 from user_data import *
 
 
 if __name__ == "__main__":
-    ChannelFactortyInitialize()
+    ChannelFactoryInitialize()
 
     # Create a publisher to publish the data defined in UserData class
     pub = ChannelPublisher("topic", UserData)

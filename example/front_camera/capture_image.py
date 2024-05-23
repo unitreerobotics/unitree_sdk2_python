@@ -2,14 +2,14 @@ import time
 import os
 import sys
 
-from unitree_sdk2py.core.channel import ChannelFactortyInitialize
+from unitree_sdk2py.core.channel import ChannelFactoryInitialize
 from unitree_sdk2py.go2.video.video_client import VideoClient
 
 if __name__ == "__main__":
     if len(sys.argv)>1:
-        ChannelFactortyInitialize(0, sys.argv[1])
+        ChannelFactoryInitialize(0, sys.argv[1])
     else:
-        ChannelFactortyInitialize(0)
+        ChannelFactoryInitialize(0)
 
     client = VideoClient()
     client.SetTimeout(3.0)
