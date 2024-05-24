@@ -3,7 +3,7 @@ unitree_sdk2 python 接口
 
 # 安装
 ## 依赖
-- python>=3.8
+- python>=3.8,<3.11
 - cyclonedds==0.10.2
 - numpy
 - opencv-python
@@ -25,7 +25,7 @@ Could not locate cyclonedds. Try to set CYCLONEDDS_HOME or CMAKE_PREFIX_PATH
 该错误提示找不到 cyclonedds 路径。首先编译安装cyclonedds：
 ```bash
 cd ~
-git clone https://github.com/eclipse-cyclonedds/cyclonedds -b releases/0.10.x 
+git clone https://github.com/eclipse-cyclonedds/cyclonedds -b releases/0.10.x
 cd cyclonedds && mkdir build install && cd build
 cmake .. -DCMAKE_INSTALL_PREFIX=../install
 cmake --build . --target install
@@ -102,7 +102,7 @@ python3 ./example/wireless_controller/wireless_controller.py enp2s0
 终端将输出每一个按键的状态。对于遥控器按键的定义和数据结构可见： https://support.unitree.com/home/zh/developer/Get_remote_control_status
 
 ## 前置摄像头
-使用opencv获取前置摄像头(确保在有图形界面的系统下运行, 按 ESC 退出程序): 
+使用opencv获取前置摄像头(确保在有图形界面的系统下运行, 按 ESC 退出程序):
 ```bash
 python3 ./example/front_camera/camera_opencv.py enp2s0
 ```

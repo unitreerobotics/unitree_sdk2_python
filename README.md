@@ -3,7 +3,7 @@ Python interface for unitree sdk2
 
 # Installation
 ## Dependencies
-- Python >= 3.8
+- Python >= 3.8, < 3.11
 - cyclonedds == 0.10.2
 - numpy
 - opencv-python
