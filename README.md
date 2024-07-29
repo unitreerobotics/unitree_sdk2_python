@@ -76,7 +76,7 @@ The low-level interface maintains consistency with unitree_sdk2 in terms of data
 ### Low-Level Status
 Execute the following command in the terminal:
 ```bash
-python3 ./example/low_level/lowlevel_control.py enp2s0
+python3 ./example/low_level/read_lowstate.py enp2s0
 ```
 Replace `enp2s0` with the name of the network interface to which the robot is connected. The program will output the state of the right front leg hip joint, IMU, and battery voltage.
 ### Low-Level Motor Control
