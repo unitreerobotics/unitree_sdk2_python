@@ -1,4 +1,4 @@
-from . import idl, utils, core, rpc, go2
+from . import idl, utils, core, rpc, go2, b2
 
 __all__ = [
     "idl"
@@ -6,4 +6,5 @@ __all__ = [
     "core",
     "rpc",
     "go2",
+    "b2",
 ]
