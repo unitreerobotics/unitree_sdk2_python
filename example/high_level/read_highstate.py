@@ -15,7 +15,8 @@ def HighStateHandler(msg: SportModeState_):
 
 
 if __name__ == "__main__":
-    ChannelFactoryInitialize(0, "enp3s0")
+    # sys.argv[1]: name of the network interface
+    ChannelFactoryInitialize(0, sys.argv[1])
     sub = ChannelSubscriber("rt/sportmodestate", SportModeState_)
     sub.Init(HighStateHandler, 10)
 
