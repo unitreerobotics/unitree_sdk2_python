@@ -17,6 +17,8 @@ class ObstaclesAvoidClient(Client):
         # regist api
         self._RegistApi(OBSTACLES_AVOID_API_ID_SWITCH_SET, 0)
         self._RegistApi(OBSTACLES_AVOID_API_ID_SWITCH_GET, 0)
+        self._RegistApi(OBSTACLES_AVOID_API_ID_MOVE, 0)
+        self._RegistApi(OBSTACLES_AVOID_API_ID_USE_REMOTE_COMMAND_FROM_API, 0)
 
     # 1001
     def SwitchSet(self, on: bool):
@@ -38,3 +40,21 @@ class ObstaclesAvoidClient(Client):
             return code, d["enable"]
         else:
             return code, None
+
+    # 1003
+    def Move(self, vx: float, vy: float, vyaw: float):
+        p = {}
+        p["x"] = vx
+        p["y"] = vy
+        p["yaw"] = vyaw
+        p["mode"] = 0
+        parameter = json.dumps(p)
+        code = self._CallNoReply(OBSTACLES_AVOID_API_ID_MOVE, parameter)
+        return code
+
+    def UseRemoteCommandFromApi(self, isRemoteCommandsFromApi: bool):
+        p = {}
+        p["is_remote_commands_from_api"] = isRemoteCommandsFromApi
+        parameter = json.dumps(p)
+        code, data = self._Call(OBSTACLES_AVOID_API_ID_USE_REMOTE_COMMAND_FROM_API, parameter)
+        return code
