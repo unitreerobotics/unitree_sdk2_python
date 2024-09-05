@@ -5,7 +5,7 @@ setup(name='unitree_sdk2py',
       author='Unitree',
       author_email='unitree@unitree.com',
       license="BSD-3-Clause",
-      packages=find_packages(),
+      packages=find_packages(include=['unitree_sdk2py','unitree_sdk2py.*']),
       description='Unitree robot sdk version 2 for python',
       python_requires='>=3.8',
       install_requires=[

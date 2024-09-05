@@ -6,6 +6,17 @@ from .sensor_msgs.msg.dds_ import *
 from .unitree_go.msg.dds_ import *
 from .unitree_api.msg.dds_ import *
 
+# IDL for unitree_hg
+from .unitree_hg.msg.dds_ import LowCmd_ as HGLowCmd_
+from .unitree_hg.msg.dds_ import LowState_ as HGLowState_
+from .unitree_hg.msg.dds_ import MotorCmd_ as HGMotorCmd_
+from .unitree_hg.msg.dds_ import MotorState_ as HGMotorState_
+from .unitree_hg.msg.dds_ import BmsState_ as HGBmsState_
+from .unitree_hg.msg.dds_ import IMUState_ as HGIMUState_
+from .unitree_hg.msg.dds_ import MainBoardState_ as HGMainBoardState_
+from .unitree_hg.msg.dds_ import PressSensorState_ as HGPressSensorState_
+from .unitree_hg.msg.dds_ import HandCmd_ as HGHandCmd_
+from .unitree_hg.msg.dds_ import HandState_ as HGHandState_
 
 """
 " builtin_interfaces_msgs.msg.dds_ dafault
@@ -89,7 +100,8 @@ def nav_msgs_msg_dds__OccupancyGrid_():
     return OccupancyGrid_(std_msgs_msg_dds__Header_(), nav_msgs_msg_dds__MapMetaData_(), [])
 
 def nav_msgs_msg_dds__Odometry_():
-    return Odometry_(std_msgs_msg_dds__Header_(), "", geometry_msgs_msg_dds__PoseWithCovariance_(), geometry_msgs_msg_dds__TwistWithCovariance_())
+    return Odometry_(std_msgs_msg_dds__Header_(), "", geometry_msgs_msg_dds__PoseWithCovariance_(),
+            geometry_msgs_msg_dds__TwistWithCovariance_())
 
 
 """
@@ -139,15 +151,17 @@ def unitree_go_msg_dds__MotorState_():
     return MotorState_(0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0, [0, 0])
 
 def unitree_go_msg_dds__LowCmd_():
-    return LowCmd_([0, 0], 0, 0, [0, 0], [0, 0], 0, [unitree_go_msg_dds__MotorCmd_() for i in range(20)], unitree_go_msg_dds__BmsCmd_(),
-                   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0], 0, 0, 0)
+    return LowCmd_([0, 0], 0, 0, [0, 0], [0, 0], 0, [unitree_go_msg_dds__MotorCmd_() for i in range(20)],
+                unitree_go_msg_dds__BmsCmd_(),
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0], 0, 0, 0)
 
 def unitree_go_msg_dds__LowState_():
-    return LowState_([0, 0], 0, 0, [0, 0], [0, 0], 0, unitree_go_msg_dds__IMUState_(), [unitree_go_msg_dds__MotorState_() for i in range(20)],
-                    unitree_go_msg_dds__BmsState_(), [0, 0, 0, 0], [0, 0, 0, 0], 0,
-                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    0, 0, 0, 0, 0.0, 0.0, [0, 0, 0, 0], 0, 0)
+    return LowState_([0, 0], 0, 0, [0, 0], [0, 0], 0, unitree_go_msg_dds__IMUState_(),
+                [unitree_go_msg_dds__MotorState_() for i in range(20)],
+                unitree_go_msg_dds__BmsState_(), [0, 0, 0, 0], [0, 0, 0, 0], 0,
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                0, 0, 0, 0, 0.0, 0.0, [0, 0, 0, 0], 0, 0)
 
 def unitree_go_msg_dds__Req_():
     return Req_("", "")
@@ -162,9 +176,10 @@ def unitree_go_msg_dds__PathPoint_():
     return PathPoint_(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
 
 def unitree_go_msg_dds__SportModeState_():
-    return SportModeState_(unitree_go_msg_dds__TimeSpec_(), 0, unitree_go_msg_dds__IMUState_(), 0, 0, 0, 0.0, [0.0, 0.0, 0.0], 0.0,
-                    [0.0, 0.0, 0.0], 0.0, [0.0, 0.0, 0.0, 0.0], [0, 0, 0, 0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-                    [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],[unitree_go_msg_dds__PathPoint_() for i in range(10)])
+    return SportModeState_(unitree_go_msg_dds__TimeSpec_(), 0, unitree_go_msg_dds__IMUState_(),
+                0, 0, 0, 0.0, [0.0, 0.0, 0.0], 0.0,
+                [0.0, 0.0, 0.0], 0.0, [0.0, 0.0, 0.0, 0.0], [0, 0, 0, 0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],[unitree_go_msg_dds__PathPoint_() for i in range(10)])
 
 def unitree_go_msg_dds__UwbState_():
     return UwbState_([0, 0], 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, [0.0, 0.0], 0, 0, 0)
@@ -177,19 +192,64 @@ def unitree_go_msg_dds__WirelessController_():
 
 
 """
+" unitree_hg.msg.dds_ dafault
+"""
+def unitree_hg_msg_dds__BmsCmd_():
+    return HGBmsCmd_(0, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+
+def unitree_hg_msg_dds__BmsState_():
+    return HGBmsState_(0, 0, 0,
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0], 0, 0, 0, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 0, 0, [0, 0, 0, 0, 0], [0, 0, 0])
+
+def unitree_hg_msg_dds__IMUState_():
+    return HGIMUState_([0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0], 0)
+
+def unitree_hg_msg_dds__MotorCmd_():
+    return HGMotorCmd_(0, 0.0, 0.0, 0.0, 0.0, 0.0, 0)
+
+def unitree_hg_msg_dds__MotorState_():
+    return HGMotorState_(0, 0.0, 0.0, 0.0, 0.0, [0, 0], 0.0, [0, 0], 0,  [0, 0, 0, 0])
+
+def unitree_hg_msg_dds__MainBoardState_():
+    return HGMainBoardState_([0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0, 0, 0, 0, 0, 0])
+
+def unitree_hg_msg_dds__LowCmd_():
+    return HGLowCmd_(0, 0, [unitree_hg_msg_dds__MotorCmd_() for i in range(35)], [0, 0, 0, 0], 0)
+
+def unitree_hg_msg_dds__LowState_():
+    return HGLowState_([0, 0], 0, 0, 0, unitree_hg_msg_dds__IMUState_(),
+                [unitree_hg_msg_dds__MotorState_() for i in range(35)],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0], 0)
+
+def unitree_hg_msg_dds__PressSensorState_():
+    return HGPressSensorState_([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
+
+def unitree_hg_msg_dds__HandCmd_():
+    return HGHandCmd_([])
+
+def unitree_hg_msg_dds__HandState_():
+    return HGHandState([], unitree_hg_msg_dds__IMUState_(), [], 0.0, 0.0, [0, 0])
+
+
+"""
 " unitree_api.msg.dds_ dafault
 """
 def unitree_api_msg_dds__RequestIdentity_():
     return RequestIdentity_(0, 0)
 
 def unitree_api_msg_dds__RequestLease_():
-    return RequestLease_(0)
+    return RequestLease_(0, unitree_hg_msg_dds__IMUState_(), [], )
 
 def unitree_api_msg_dds__RequestPolicy_():
     return RequestPolicy_(0, False)
 
 def unitree_api_msg_dds__RequestHeader_():
-    return RequestHeader_(unitree_api_msg_dds__RequestIdentity_(), unitree_api_msg_dds__RequestLease_(), unitree_api_msg_dds__RequestPolicy_())
+    return RequestHeader_(unitree_api_msg_dds__RequestIdentity_(), unitree_api_msg_dds__RequestLease_(),
+            unitree_api_msg_dds__RequestPolicy_())
 
 def unitree_api_msg_dds__Request_():
     return Request_(unitree_api_msg_dds__RequestHeader_(), "", [])
@@ -201,5 +261,5 @@ def unitree_api_msg_dds__ResponseHeader_():
     return ResponseHeader_(unitree_api_msg_dds__RequestIdentity_(), unitree_api_msg_dds__ResponseStatus_())
 
 def unitree_api_msg_dds__Response_():
-    return Response_(unitree_api_msg_dds__ResponseHeader_(), "", [])
+    return Response_(unitree_api_msg_dds__ResponseHeader_(), "", [], 0, 0, [0, 0])
 
