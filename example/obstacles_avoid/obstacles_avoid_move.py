@@ -10,19 +10,26 @@ if __name__ == "__main__":
     else:
         ChannelFactoryInitialize(0)
 
-    client = ObstaclesAvoidClient()
-    client.SetTimeout(3.0)
-    client.Init()
+    try:
+        client = ObstaclesAvoidClient()
+        client.SetTimeout(3.0)
+        client.Init()
 
-    client.SwitchSet(False)
-    time.sleep(2)
+        while not client.SwitchGet()[1]:
+            client.SwitchSet(True)
+            time.sleep(0.1)
 
-    client.SwitchSet(True)
-    time.sleep(2)
+        print("obstacles avoid switch on")
 
-    client.UseRemoteCommandFromApi(True)
-    time.sleep(2)
-    while True:
+        client.UseRemoteCommandFromApi(True)
+        time.sleep(0.5)
         client.Move(0.5, 0.0, 0.0)
-        time.sleep(0.02)
+        time.sleep(1.0) # move 1s
+        client.Move(0.0, 0.0, 0.0)
+        client.UseRemoteCommandFromApi(False)
+
+    except KeyboardInterrupt:
+        client.Move(0.0, 0.0, 0.0)
+        client.UseRemoteCommandFromApi(False)
+        print("exit!!")
         
