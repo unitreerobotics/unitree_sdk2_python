@@ -52,10 +52,7 @@ class RecurrentThread(Thread):
         super().Wait(timeout)
 
     def __LoopFunc(self):
-        # clock type CLOCK_MONOTONIC = 1
-        tfd = timerfd_create(1, 0)
-        spec = itimerspec.from_seconds(self.__inter, self.__inter)
-        timerfd_settime(tfd, 0, ctypes.byref(spec), None)
+        timer = Timer(self.__inter, self.__inter)
 
         while not self.__quit:
             try:
@@ -65,13 +62,13 @@ class RecurrentThread(Thread):
                 print(f"[RecurrentThread] target func raise exception: name={info[0].__name__}, args={str(info[1].args)}")
 
             try:
-                buf = os.read(tfd, 8)
+                timer.blockWait()
                 # print(struct.unpack("Q", buf)[0])
             except OSError as e:
                 if e.errno != errno.EAGAIN:
                     raise e
 
-        os.close(tfd)
+        timer.close()
     
     def __LoopFunc_0(self):
         while not self.__quit:
