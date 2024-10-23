@@ -23,10 +23,13 @@ import cyclonedds.idl.types as types
 @annotate.autoid("sequential")
 class HandState_(idl.IdlStruct, typename="unitree_hg.msg.dds_.HandState_"):
     motor_state: types.sequence['unitree_sdk2py.idl.unitree_hg.msg.dds_.MotorState_']
-    imu_state: 'unitree_sdk2py.idl.unitree_hg.msg.dds_.IMUState_'
     press_sensor_state: types.sequence['unitree_sdk2py.idl.unitree_hg.msg.dds_.PressSensorState_']
+    imu_state: 'unitree_sdk2py.idl.unitree_hg.msg.dds_.IMUState_'
     power_v: types.float32
     power_a: types.float32
+    system_v: types.float32
+    device_v: types.float32
+    error: types.array[types.uint32, 2]
     reserve: types.array[types.uint32, 2]
 
 
