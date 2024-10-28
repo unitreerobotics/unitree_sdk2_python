@@ -10,7 +10,7 @@ Python interface for unitree sdk2
 ## Install unitree_sdk2_python
 
 ```bash
-pip install unitree_sd2py
+pip install unitree_sdk2py
 ```
 
 ### Installing from source
