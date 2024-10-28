@@ -8,6 +8,12 @@ Python interface for unitree sdk2
 - numpy
 - opencv-python
 ## Install unitree_sdk2_python
+
+```bash
+pip install unitree_sd2py
+```
+
+### Installing from source
 Execute the following commands in the terminal:
 ```bash
 cd ~

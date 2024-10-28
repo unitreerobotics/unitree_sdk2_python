@@ -34,3 +34,6 @@ __pycache__
 
 # JetBrains IDE
 .idea/
+
+# python
+dist/
