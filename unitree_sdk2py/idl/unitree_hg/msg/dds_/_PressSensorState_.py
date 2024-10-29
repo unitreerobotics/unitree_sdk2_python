@@ -24,5 +24,7 @@ import cyclonedds.idl.types as types
 class PressSensorState_(idl.IdlStruct, typename="unitree_hg.msg.dds_.PressSensorState_"):
     pressure: types.array[types.float32, 12]
     temperature: types.array[types.float32, 12]
+    lost: types.uint32
+    reserve: types.uint32
 
 
