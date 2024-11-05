@@ -31,7 +31,7 @@ class CRC(Singleton):
             if platform.machine()=="x86_64":
                 self.crc_lib = ctypes.CDLL(script_dir + '/lib/crc_amd64.so')
             elif platform.machine()=="aarch64":
-                self.crc_lib = ctypes.CDLL(script_dir + '/lib/crc_arm64.so')
+                self.crc_lib = ctypes.CDLL(script_dir + '/lib/crc_aarch64.so')
 
             self.crc_lib.crc32_core.argtypes = (ctypes.POINTER(ctypes.c_uint32), ctypes.c_uint32)
             self.crc_lib.crc32_core.restype = ctypes.c_uint32
