@@ -13,7 +13,7 @@ from cyclonedds.util import duration
 from cyclonedds.internal import dds_c_t, InvalidSample
 
 # for channel config
-from .channel_config import ChannelConfigAutoDetermine, ChannelConfigHasInterface
+from .channel_config import ChannelConfigAutoDetermine, ChannelConfigHasInterface, ChannelConfigHasIP
 
 # for singleton
 from ..utils.singleton import Singleton
@@ -201,7 +201,12 @@ class ChannelFactory(Singleton):
         if networkInterface is None:
             config = ChannelConfigAutoDetermine
         else:
-            config = ChannelConfigHasInterface.replace('$__IF_NAME__$', networkInterface)
+            if "." in networkInterface: # connect using IP
+                config = ChannelConfigHasIP.replace('$__IF_IP__$', networkInterface)
+                print(f"connecting using IP: {networkInterface}")
+            else: # connect using Iface
+                config = ChannelConfigHasInterface.replace('$__IF_NAME__$', networkInterface)
+                print(f"connecting using Iface: {networkInterface}")
 
         try:
             self.__domain = Domain(id, config)
