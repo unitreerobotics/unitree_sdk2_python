@@ -226,13 +226,16 @@ def unitree_hg_msg_dds__LowState_():
 
 def unitree_hg_msg_dds__PressSensorState_():
     return HGPressSensorState_([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-                [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
+                               [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], 0, 0)
 
 def unitree_hg_msg_dds__HandCmd_():
-    return HGHandCmd_([])
+    return HGHandCmd_([unitree_hg_msg_dds__MotorCmd_() for i in range(7)], [0, 0, 0, 0])
 
 def unitree_hg_msg_dds__HandState_():
-    return HGHandState([], unitree_hg_msg_dds__IMUState_(), [], 0.0, 0.0, [0, 0])
+    return HGHandState_([unitree_hg_msg_dds__MotorState_() for i in range(7)], 
+                        [unitree_hg_msg_dds__PressSensorState_() for i in range(7)],
+                         unitree_hg_msg_dds__IMUState_(), 
+                         0.0, 0.0, 0.0, 0.0, [0, 0], [0, 0])
 
 
 """
