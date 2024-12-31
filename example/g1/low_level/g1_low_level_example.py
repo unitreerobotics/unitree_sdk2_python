@@ -102,12 +102,12 @@ class Custom:
         self.lowcmd_publisher_.Init()
 
         # create subscriber # 
-        self.__lowstate_subscriber = ChannelSubscriber("rt/lowstate", LowState_)
-        self.__lowstate_subscriber.Init(self.LowStateHandler, 10)
+        self.lowstate_subscriber = ChannelSubscriber("rt/lowstate", LowState_)
+        self.lowstate_subscriber.Init(self.LowStateHandler, 10)
 
     def Start(self):
         self.lowCmdWriteThreadPtr = RecurrentThread(
-            interval=self.control_dt_, target=self.__LowCmdWrite, name="control"
+            interval=self.control_dt_, target=self.LowCmdWrite, name="control"
         )
         while self.update_mode_machine_ == False:
             time.sleep(1)
@@ -127,7 +127,7 @@ class Custom:
             self.counter_ = 0
             print(self.low_state.imu_state.rpy)
 
-    def __LowCmdWrite(self):
+    def LowCmdWrite(self):
         self.time_ += self.control_dt_
 
         if self.time_ < self.duration_ :
@@ -176,6 +176,13 @@ class Custom:
             self.low_cmd.motor_cmd[G1JointIndex.LeftAnkleB].q = L_B_des
             self.low_cmd.motor_cmd[G1JointIndex.RightAnkleA].q = R_A_des
             self.low_cmd.motor_cmd[G1JointIndex.RightAnkleB].q = R_B_des
+            
+            max_WristYaw = np.pi * 30.0 / 180.0
+            L_WristYaw_des = max_WristYaw * np.sin(2.0 * np.pi * t)
+            R_WristYaw_des = max_WristYaw * np.sin(2.0 * np.pi * t)
+            self.low_cmd.motor_cmd[G1JointIndex.LeftWristRoll].q = L_WristYaw_des
+            self.low_cmd.motor_cmd[G1JointIndex.RightWristRoll].q = R_WristYaw_des
+    
 
         self.low_cmd.crc = self.crc.Crc(self.low_cmd)
         self.lowcmd_publisher_.Write(self.low_cmd)
