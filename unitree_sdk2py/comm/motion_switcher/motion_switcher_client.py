@@ -32,6 +32,15 @@ class MotionSwitcherClient(Client):
         else:
             return code, None
 
+    # 1002
+    def SelectMode(self, nameOrAlias):
+        p = {}
+        p["name"] = nameOrAlias
+        parameter = json.dumps(p)
+        code, data = self._Call(MOTION_SWITCHER_API_ID_SELECT_MODE, parameter)
+      
+        return code, None
+
     # 1003
     def ReleaseMode(self):
         p = {}
