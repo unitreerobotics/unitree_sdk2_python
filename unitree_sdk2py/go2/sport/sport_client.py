@@ -73,6 +73,16 @@ class SportClient(Client):
         self._RegistApi(SPORT_API_ID_ECONOMICGAIT, 0)
         self._RegistApi(SPORT_API_ID_HEART, 0)
 
+        self._RegistApi(ROBOT_SPORT_API_ID_LEFTFLIP, 0)
+        self._RegistApi(ROBOT_SPORT_API_ID_BACKFLIP, 0)
+        self._RegistApi(ROBOT_SPORT_API_ID_FREEWALK, 0)
+        self._RegistApi(ROBOT_SPORT_API_ID_FREEBOUND, 0)
+        self._RegistApi(ROBOT_SPORT_API_ID_FREEJUMP, 0)
+        self._RegistApi(ROBOT_SPORT_API_ID_FREEAVOID, 0)
+        self._RegistApi(ROBOT_SPORT_API_ID_WALKSTAIR, 0)
+        self._RegistApi(ROBOT_SPORT_API_ID_WALKUPRIGHT, 0)
+        self._RegistApi(ROBOT_SPORT_API_ID_CROSSSTEP, 0)
+
     # 1001
     def Damp(self):
         p = {}
@@ -361,4 +371,76 @@ class SportClient(Client):
         p = {}
         parameter = json.dumps(p)
         code, data = self._Call(SPORT_API_ID_HEART, parameter)
+        return code
+    
+    # 1042
+    def LeftFlip(self):
+        p = {}
+        p["data"] = True
+        parameter = json.dumps(p)
+        code, data = self._Call(ROBOT_SPORT_API_ID_LEFTFLIP, parameter)
+        return code
+
+    # 1044
+    def BackFlip(self):
+        p = {}
+        p["data"] = True
+        parameter = json.dumps(p)
+        code, data = self._Call(ROBOT_SPORT_API_ID_BACKFLIP, parameter)
+        return code
+
+    # 1045
+    def FreeWalk(self, flag: bool):
+        p = {}
+        p["data"] = True
+        parameter = json.dumps(p)
+        code, data = self._Call(ROBOT_SPORT_API_ID_FREEWALK, parameter)
+        return code
+
+    # 1046
+    def FreeBound(self, flag: bool):
+        p = {}
+        p["data"] = flag
+        parameter = json.dumps(p)
+        code, data = self._Call(ROBOT_SPORT_API_ID_FREEBOUND, parameter)
+        return code
+    
+    # 1047
+    def FreeJump(self, flag: bool):
+        p = {}
+        p["data"] = flag
+        parameter = json.dumps(p)
+        code, data = self._Call(ROBOT_SPORT_API_ID_FREEJUMP, parameter)
+        return code
+
+    # 1048
+    def FreeAvoid(self, flag: bool):
+        p = {}
+        p["data"] = flag
+        parameter = json.dumps(p)
+        code, data = self._Call(ROBOT_SPORT_API_ID_FREEAVOID, parameter)
+        return code
+
+    # 1049
+    def WalkStair(self, flag: bool):
+        p = {}
+        p["data"] = flag
+        parameter = json.dumps(p)
+        code, data = self._Call(ROBOT_SPORT_API_ID_WALKSTAIR, parameter)
+        return code
+    
+    # 1050
+    def WalkUpright(self, flag: bool):
+        p = {}
+        p["data"] = flag
+        parameter = json.dumps(p)
+        code, data = self._Call(ROBOT_SPORT_API_ID_WALKUPRIGHT, parameter)
+        return code
+
+    # 1051
+    def CrossStep(self, flag: bool):  
+        p = {}
+        p["data"] = flag
+        parameter = json.dumps(p)
+        code, data = self._Call(ROBOT_SPORT_API_ID_CROSSSTEP, parameter)
         return code

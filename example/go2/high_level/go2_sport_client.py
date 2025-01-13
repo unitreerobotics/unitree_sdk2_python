@@ -27,7 +27,17 @@ option_list = [
     TestOption(name="switch_gait", id=7),    
     TestOption(name="switch_gait", id=8),
     TestOption(name="balanced stand", id=9),     
-    TestOption(name="recovery", id=10)       
+    TestOption(name="recovery", id=10),
+    TestOption(name="recovery", id=10),       
+    TestOption(name="left flip", id=11),      
+    TestOption(name="back flip", id=12),
+    TestOption(name="free walk", id=13),  
+    TestOption(name="free bound", id=14), 
+    TestOption(name="free avoid", id=15),  
+    TestOption(name="walk stair", id=16), 
+    TestOption(name="walk upright", id=17),
+    TestOption(name="cross step", id=18),
+    TestOption(name="free jump", id=19)       
 ]
 
 class UserInterface:
@@ -105,5 +115,56 @@ if __name__ == "__main__":
             sport_client.BalanceStand()
         elif test_option.id == 10:
             sport_client.RecoveryStand()
+        elif test_option.id == 11:
+            ret = sport_client.LeftFlip()
+            print("ret: ",ret)
+        elif test_option.id == 12:
+            ret = sport_client.BackFlip()
+            print("ret: ",ret)
+        elif test_option.id == 13:
+            ret = sport_client.FreeWalk(True)
+            print("ret: ",ret)
+        elif test_option.id == 14:
+            ret = sport_client.FreeBound(True)
+            print("ret: ",ret)
+            time.sleep(2)
+            ret = sport_client.FreeBound(False)
+            print("ret: ",ret)
+        elif test_option.id == 14:
+            ret = sport_client.FreeBound(True)
+            print("ret: ",ret)
+            time.sleep(2)
+            ret = sport_client.FreeBound(False)
+            print("ret: ",ret)
+        elif test_option.id == 15:
+            ret = sport_client.FreeAvoid(True)
+            print("ret: ",ret)
+            time.sleep(2)
+            ret = sport_client.FreeAvoid(False)
+            print("ret: ",ret)
+        elif test_option.id == 16:
+            ret = sport_client.WalkStair(True)
+            print("ret: ",ret)
+            time.sleep(10)
+            ret = sport_client.WalkStair(False)
+            print("ret: ",ret)
+        elif test_option.id == 17:
+            ret = sport_client.WalkUpright(True)
+            print("ret: ",ret)
+            time.sleep(4)
+            ret = sport_client.WalkUpright(False)
+            print("ret: ",ret)
+        elif test_option.id == 18:
+            ret = sport_client.CrossStep(True)
+            print("ret: ",ret)
+            time.sleep(4)
+            ret = sport_client.CrossStep(False)
+            print("ret: ",ret)
+        elif test_option.id == 19:
+            ret = sport_client.FreeJump(True)
+            print("ret: ",ret)
+            time.sleep(4)
+            ret = sport_client.FreeJump(False)
+            print("ret: ",ret)
 
         time.sleep(1)
