@@ -21,7 +21,10 @@ option_list = [
     TestOption(name="move rotate", id=5),  
     TestOption(name="low stand", id=6),  
     TestOption(name="high stand", id=7),    
-    TestOption(name="zero torque", id=8)     
+    TestOption(name="zero torque", id=8),
+    TestOption(name="wave hand1", id=9), # wave hand without turning around
+    TestOption(name="wave hand2", id=10), # wave hand and trun around  
+    TestOption(name="shake hand", id=11),     
 ]
 
 class UserInterface:
@@ -95,5 +98,13 @@ if __name__ == "__main__":
             sport_client.HighStand()
         elif test_option.id == 8:
             sport_client.ZeroTorque()
+        elif test_option.id == 9:
+            sport_client.WaveHand()
+        elif test_option.id == 10:
+            sport_client.WaveHand(True)
+        elif test_option.id == 11:
+            sport_client.ShakeHand()
+            time.sleep(3)
+            sport_client.ShakeHand()
 
         time.sleep(1)

@@ -9,7 +9,7 @@ from .g1_loco_api import *
 class LocoClient(Client):
     def __init__(self):
         super().__init__(LOCO_SERVICE_NAME, False)
-
+        self.first_shake_hand_stage_ = -1
 
     def Init(self):
         # set api version
@@ -28,6 +28,7 @@ class LocoClient(Client):
         self._RegistApi(ROBOT_API_ID_LOCO_SET_SWING_HEIGHT, 0)
         self._RegistApi(ROBOT_API_ID_LOCO_SET_STAND_HEIGHT, 0)
         self._RegistApi(ROBOT_API_ID_LOCO_SET_VELOCITY, 0)
+        self._RegistApi(ROBOT_API_ID_LOCO_SET_ARM_TASK, 0)
 
     # 7101
     def SetFsmId(self, fsm_id: int):
@@ -61,6 +62,14 @@ class LocoClient(Client):
         p["duration"] = duration
         parameter = json.dumps(p)
         code, data = self._Call(ROBOT_API_ID_LOCO_SET_VELOCITY, parameter)
+        return code
+    
+    # 7106
+    def SetTaskId(self, task_id: float):
+        p = {}
+        p["data"] = task_id
+        parameter = json.dumps(p)
+        code, data = self._Call(ROBOT_API_ID_LOCO_SET_ARM_TASK, parameter)
         return code
 
     def Damp(self):
@@ -98,4 +107,18 @@ class LocoClient(Client):
 
     def BalanceStand(self, balance_mode: int):
         self.SetBalanceMode(balance_mode)
+
+    def WaveHand(self, turn_flag: bool = False):
+        self.SetTaskId(1 if turn_flag else 0)
+
+    def ShakeHand(self, stage: int = -1):
+        if stage == 0:
+            self.first_shake_hand_stage_ = False
+            self.SetTaskId(2)
+        elif stage == 1:
+            self.first_shake_hand_stage_ = True
+            self.SetTaskId(3)
+        else:
+            self.first_shake_hand_stage_ = not self.first_shake_hand_stage_
+            return self.SetTaskId(3 if self.first_shake_hand_stage_ else 2)
     
