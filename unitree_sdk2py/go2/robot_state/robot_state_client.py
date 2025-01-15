@@ -1,7 +1,7 @@
 import json
 
 from ...rpc.client import Client
-from ...rpc.client_internal import *
+from ...rpc.internal import *
 from .robot_state_api import *
 
 
