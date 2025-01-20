@@ -23,3 +23,14 @@ ChannelConfigAutoDetermine = '''<?xml version="1.0" encoding="UTF-8" ?>
             </General>
         </Domain>
     </CycloneDDS>'''
+
+ChannelConfigHasIP = '''<?xml version="1.0" encoding="UTF-8" ?>
+    <CycloneDDS>
+        <Domain Id="any">
+            <General>
+                <Interfaces>
+                    <NetworkInterface address="$__IF_IP__$" priority="default" multicast="default"/>
+                </Interfaces>
+            </General>
+        </Domain>
+    </CycloneDDS>'''
