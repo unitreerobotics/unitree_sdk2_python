@@ -24,7 +24,7 @@ import cyclonedds.idl.types as types
 class LowCmd_(idl.IdlStruct, typename="unitree_hg.msg.dds_.LowCmd_"):
     mode_pr: types.uint8
     mode_machine: types.uint8
-    motor_cmd: types.array['unitree_sdk2py.idl.unitree_hg.msg.dds_.MotorCmd_', 35]
+    motor_cmd: types.array['unitree.unitree_sdk2py.idl.unitree_hg.msg.dds_.MotorCmd_', 35]
     reserve: types.array[types.uint32, 4]
     crc: types.uint32
 

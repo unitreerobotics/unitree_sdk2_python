@@ -22,7 +22,7 @@ import cyclonedds.idl.types as types
 @annotate.final
 @annotate.autoid("sequential")
 class TwistWithCovariance_(idl.IdlStruct, typename="geometry_msgs.msg.dds_.TwistWithCovariance_"):
-    twist: 'unitree_sdk2py.idl.geometry_msgs.msg.dds_.Twist_'
+    twist: 'unitree.unitree_sdk2py.idl.geometry_msgs.msg.dds_.Twist_'
     covariance: types.array[types.float64, 36]
 
 

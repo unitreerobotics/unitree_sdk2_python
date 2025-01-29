@@ -26,7 +26,7 @@ import cyclonedds.idl.types as types
 @annotate.final
 @annotate.autoid("sequential")
 class TwistStamped_(idl.IdlStruct, typename="geometry_msgs.msg.dds_.TwistStamped_"):
-    header: 'unitree_sdk2py.idl.std_msgs.msg.dds_.Header_'
-    twist: 'unitree_sdk2py.idl.geometry_msgs.msg.dds_.Twist_'
+    header: 'unitree.unitree_sdk2py.idl.std_msgs.msg.dds_.Header_'
+    twist: 'unitree.unitree_sdk2py.idl.geometry_msgs.msg.dds_.Twist_'
 
 

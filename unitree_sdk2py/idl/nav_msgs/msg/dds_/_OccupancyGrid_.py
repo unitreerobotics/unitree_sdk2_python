@@ -26,8 +26,8 @@ import cyclonedds.idl.types as types
 @annotate.final
 @annotate.autoid("sequential")
 class OccupancyGrid_(idl.IdlStruct, typename="nav_msgs.msg.dds_.OccupancyGrid_"):
-    header: 'unitree_sdk2py.idl.std_msgs.msg.dds_.Header_'
-    info: 'unitree_sdk2py.idl.nav_msgs.msg.dds_.MapMetaData_'
+    header: 'unitree.unitree_sdk2py.idl.std_msgs.msg.dds_.Header_'
+    info: 'unitree.unitree_sdk2py.idl.nav_msgs.msg.dds_.MapMetaData_'
     data: types.sequence[types.uint8]
 
 

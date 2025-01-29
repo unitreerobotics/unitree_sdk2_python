@@ -28,8 +28,8 @@ class LowCmd_(idl.IdlStruct, typename="unitree_go.msg.dds_.LowCmd_"):
     sn: types.array[types.uint32, 2]
     version: types.array[types.uint32, 2]
     bandwidth: types.uint16
-    motor_cmd: types.array['unitree_sdk2py.idl.unitree_go.msg.dds_.MotorCmd_', 20]
-    bms_cmd: 'unitree_sdk2py.idl.unitree_go.msg.dds_.BmsCmd_'
+    motor_cmd: types.array['unitree.unitree_sdk2py.idl.unitree_go.msg.dds_.MotorCmd_', 20]
+    bms_cmd: 'unitree.unitree_sdk2py.idl.unitree_go.msg.dds_.BmsCmd_'
     wireless_remote: types.array[types.uint8, 40]
     led: types.array[types.uint8, 12]
     fan: types.array[types.uint8, 2]

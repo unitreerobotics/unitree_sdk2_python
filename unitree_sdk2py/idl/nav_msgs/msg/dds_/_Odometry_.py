@@ -27,9 +27,9 @@ import cyclonedds.idl.types as types
 @annotate.final
 @annotate.autoid("sequential")
 class Odometry_(idl.IdlStruct, typename="nav_msgs.msg.dds_.Odometry_"):
-    header: 'unitree_sdk2py.idl.std_msgs.msg.dds_.Header_'
+    header: 'unitree.unitree_sdk2py.idl.std_msgs.msg.dds_.Header_'
     child_frame_id: str
-    pose: 'unitree_sdk2py.idl.geometry_msgs.msg.dds_.PoseWithCovariance_'
-    twist: 'unitree_sdk2py.idl.geometry_msgs.msg.dds_.TwistWithCovariance_'
+    pose: 'unitree.unitree_sdk2py.idl.geometry_msgs.msg.dds_.PoseWithCovariance_'
+    twist: 'unitree.unitree_sdk2py.idl.geometry_msgs.msg.dds_.TwistWithCovariance_'
 
 

@@ -25,7 +25,7 @@ import cyclonedds.idl.types as types
 @annotate.final
 @annotate.autoid("sequential")
 class PointStamped_(idl.IdlStruct, typename="geometry_msgs.msg.dds_.PointStamped_"):
-    header: 'unitree_sdk2py.idl.std_msgs.msg.dds_.Header_'
-    point: 'unitree_sdk2py.idl.geometry_msgs.msg.dds_.Point_'
+    header: 'unitree.unitree_sdk2py.idl.std_msgs.msg.dds_.Header_'
+    point: 'unitree.unitree_sdk2py.idl.geometry_msgs.msg.dds_.Point_'
 
 

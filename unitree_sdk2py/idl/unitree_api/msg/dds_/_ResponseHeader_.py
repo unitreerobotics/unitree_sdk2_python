@@ -22,7 +22,7 @@ import cyclonedds.idl.types as types
 @annotate.final
 @annotate.autoid("sequential")
 class ResponseHeader_(idl.IdlStruct, typename="unitree_api.msg.dds_.ResponseHeader_"):
-    identity: 'unitree_sdk2py.idl.unitree_api.msg.dds_.RequestIdentity_'
-    status: 'unitree_sdk2py.idl.unitree_api.msg.dds_.ResponseStatus_'
+    identity: 'unitree.unitree_sdk2py.idl.unitree_api.msg.dds_.RequestIdentity_'
+    status: 'unitree.unitree_sdk2py.idl.unitree_api.msg.dds_.ResponseStatus_'
 
 

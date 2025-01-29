@@ -22,8 +22,8 @@ import cyclonedds.idl.types as types
 @annotate.final
 @annotate.autoid("sequential")
 class RequestHeader_(idl.IdlStruct, typename="unitree_api.msg.dds_.RequestHeader_"):
-    identity: 'unitree_sdk2py.idl.unitree_api.msg.dds_.RequestIdentity_'
-    lease: 'unitree_sdk2py.idl.unitree_api.msg.dds_.RequestLease_'
-    policy: 'unitree_sdk2py.idl.unitree_api.msg.dds_.RequestPolicy_'
+    identity: 'unitree.unitree_sdk2py.idl.unitree_api.msg.dds_.RequestIdentity_'
+    lease: 'unitree.unitree_sdk2py.idl.unitree_api.msg.dds_.RequestLease_'
+    policy: 'unitree.unitree_sdk2py.idl.unitree_api.msg.dds_.RequestPolicy_'
 
 

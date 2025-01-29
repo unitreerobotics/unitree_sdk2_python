@@ -26,7 +26,7 @@ import cyclonedds.idl.types as types
 @annotate.final
 @annotate.autoid("sequential")
 class PoseStamped_(idl.IdlStruct, typename="geometry_msgs.msg.dds_.PoseStamped_"):
-    header: 'unitree_sdk2py.idl.std_msgs.msg.dds_.Header_'
-    pose: 'unitree_sdk2py.idl.geometry_msgs.msg.dds_.Pose_'
+    header: 'unitree.unitree_sdk2py.idl.std_msgs.msg.dds_.Header_'
+    pose: 'unitree.unitree_sdk2py.idl.geometry_msgs.msg.dds_.Pose_'
 
 

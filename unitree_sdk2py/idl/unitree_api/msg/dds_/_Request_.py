@@ -22,7 +22,7 @@ import cyclonedds.idl.types as types
 @annotate.final
 @annotate.autoid("sequential")
 class Request_(idl.IdlStruct, typename="unitree_api.msg.dds_.Request_"):
-    header: 'unitree_sdk2py.idl.unitree_api.msg.dds_.RequestHeader_'
+    header: 'unitree.unitree_sdk2py.idl.unitree_api.msg.dds_.RequestHeader_'
     parameter: str
     binary: types.sequence[types.uint8]
 

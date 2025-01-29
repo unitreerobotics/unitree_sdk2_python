@@ -26,7 +26,7 @@ import cyclonedds.idl.types as types
 @annotate.final
 @annotate.autoid("sequential")
 class PoseWithCovarianceStamped_(idl.IdlStruct, typename="geometry_msgs.msg.dds_.PoseWithCovarianceStamped_"):
-    header: 'unitree_sdk2py.idl.std_msgs.msg.dds_.Header_'
-    pose: 'unitree_sdk2py.idl.geometry_msgs.msg.dds_.PoseWithCovariance_'
+    header: 'unitree.unitree_sdk2py.idl.std_msgs.msg.dds_.Header_'
+    pose: 'unitree.unitree_sdk2py.idl.geometry_msgs.msg.dds_.PoseWithCovariance_'
 
 
