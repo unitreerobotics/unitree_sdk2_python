@@ -22,7 +22,7 @@ import cyclonedds.idl.types as types
 @annotate.final
 @annotate.autoid("sequential")
 class PoseWithCovariance_(idl.IdlStruct, typename="geometry_msgs.msg.dds_.PoseWithCovariance_"):
-    pose: 'unitree_sdk2py.idl.geometry_msgs.msg.dds_.Pose_'
+    pose: 'unitree.unitree_sdk2py.idl.geometry_msgs.msg.dds_.Pose_'
     covariance: types.array[types.float64, 36]
 
 

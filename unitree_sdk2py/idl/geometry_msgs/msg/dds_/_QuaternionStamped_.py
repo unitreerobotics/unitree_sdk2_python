@@ -26,7 +26,7 @@ import cyclonedds.idl.types as types
 @annotate.final
 @annotate.autoid("sequential")
 class QuaternionStamped_(idl.IdlStruct, typename="geometry_msgs.msg.dds_.QuaternionStamped_"):
-    header: 'unitree_sdk2py.idl.std_msgs.msg.dds_.Header_'
-    quaternion: 'unitree_sdk2py.idl.geometry_msgs.msg.dds_.Quaternion_'
+    header: 'unitree.unitree_sdk2py.idl.std_msgs.msg.dds_.Header_'
+    quaternion: 'unitree.unitree_sdk2py.idl.geometry_msgs.msg.dds_.Quaternion_'
 
 

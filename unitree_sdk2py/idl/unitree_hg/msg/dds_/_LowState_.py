@@ -26,8 +26,8 @@ class LowState_(idl.IdlStruct, typename="unitree_hg.msg.dds_.LowState_"):
     mode_pr: types.uint8
     mode_machine: types.uint8
     tick: types.uint32
-    imu_state: 'unitree_sdk2py.idl.unitree_hg.msg.dds_.IMUState_'
-    motor_state: types.array['unitree_sdk2py.idl.unitree_hg.msg.dds_.MotorState_', 35]
+    imu_state: 'unitree.unitree_sdk2py.idl.unitree_hg.msg.dds_.IMUState_'
+    motor_state: types.array['unitree.unitree_sdk2py.idl.unitree_hg.msg.dds_.MotorState_', 35]
     wireless_remote: types.array[types.uint8, 40]
     reserve: types.array[types.uint32, 4]
     crc: types.uint32

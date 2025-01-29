@@ -18,6 +18,6 @@ import cyclonedds.idl.types as types
 @annotate.final
 @annotate.autoid("sequential")
 class MotorCmds_(idl.IdlStruct, typename="unitree_go.msg.dds_.MotorCmds_"):
-    cmds: types.sequence['unitree_sdk2py.idl.unitree_go.msg.dds_.MotorCmd_'] = field(default_factory=lambda: [])
+    cmds: types.sequence['unitree.unitree_sdk2py.idl.unitree_go.msg.dds_.MotorCmd_'] = field(default_factory=lambda: [])
 
 

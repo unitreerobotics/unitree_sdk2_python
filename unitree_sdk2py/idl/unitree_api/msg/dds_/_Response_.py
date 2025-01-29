@@ -21,7 +21,7 @@ import cyclonedds.idl.types as types
 @annotate.final
 @annotate.autoid("sequential")
 class Response_(idl.IdlStruct, typename="unitree_api.msg.dds_.Response_"):
-    header: 'unitree_sdk2py.idl.unitree_api.msg.dds_.ResponseHeader_'
+    header: 'unitree.unitree_sdk2py.idl.unitree_api.msg.dds_.ResponseHeader_'
     data: str
     binary: types.sequence[types.uint8]
 

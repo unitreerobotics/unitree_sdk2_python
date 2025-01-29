@@ -26,7 +26,7 @@ import cyclonedds.idl.types as types
 @annotate.final
 @annotate.autoid("sequential")
 class Header_(idl.IdlStruct, typename="std_msgs.msg.dds_.Header_"):
-    stamp: 'unitree_sdk2py.idl.builtin_interfaces.msg.dds_.Time_'
+    stamp: 'unitree.unitree_sdk2py.idl.builtin_interfaces.msg.dds_.Time_'
     frame_id: str
 
 

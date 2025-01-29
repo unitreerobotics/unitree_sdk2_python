@@ -22,7 +22,7 @@ import cyclonedds.idl.types as types
 @annotate.final
 @annotate.autoid("sequential")
 class HandCmd_(idl.IdlStruct, typename="unitree_hg.msg.dds_.HandCmd_"):
-    motor_cmd: types.sequence['unitree_sdk2py.idl.unitree_hg.msg.dds_.MotorCmd_']
+    motor_cmd: types.sequence['unitree.unitree_sdk2py.idl.unitree_hg.msg.dds_.MotorCmd_']
     reserve: types.array[types.uint32, 4]
 
 

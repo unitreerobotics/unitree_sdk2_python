@@ -22,9 +22,9 @@ import cyclonedds.idl.types as types
 @annotate.final
 @annotate.autoid("sequential")
 class SportModeState_(idl.IdlStruct, typename="unitree_go.msg.dds_.SportModeState_"):
-    stamp: 'unitree_sdk2py.idl.unitree_go.msg.dds_.TimeSpec_'
+    stamp: 'unitree.unitree_sdk2py.idl.unitree_go.msg.dds_.TimeSpec_'
     error_code: types.uint32
-    imu_state: 'unitree_sdk2py.idl.unitree_go.msg.dds_.IMUState_'
+    imu_state: 'unitree.unitree_sdk2py.idl.unitree_go.msg.dds_.IMUState_'
     mode: types.uint8
     progress: types.float32
     gait_type: types.uint8
@@ -37,6 +37,6 @@ class SportModeState_(idl.IdlStruct, typename="unitree_go.msg.dds_.SportModeStat
     foot_force: types.array[types.int16, 4]
     foot_position_body: types.array[types.float32, 12]
     foot_speed_body: types.array[types.float32, 12]
-    path_point: types.array['unitree_sdk2py.idl.unitree_go.msg.dds_.PathPoint_', 10]
+    path_point: types.array['unitree.unitree_sdk2py.idl.unitree_go.msg.dds_.PathPoint_', 10]
 
 
