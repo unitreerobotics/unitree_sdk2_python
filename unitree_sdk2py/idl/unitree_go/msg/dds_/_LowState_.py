@@ -28,9 +28,9 @@ class LowState_(idl.IdlStruct, typename="unitree_go.msg.dds_.LowState_"):
     sn: types.array[types.uint32, 2]
     version: types.array[types.uint32, 2]
     bandwidth: types.uint16
-    imu_state: 'unitree_sdk2py.idl.unitree_go.msg.dds_.IMUState_'
-    motor_state: types.array['unitree_sdk2py.idl.unitree_go.msg.dds_.MotorState_', 20]
-    bms_state: 'unitree_sdk2py.idl.unitree_go.msg.dds_.BmsState_'
+    imu_state: 'unitree.unitree_sdk2py.idl.unitree_go.msg.dds_.IMUState_'
+    motor_state: types.array['unitree.unitree_sdk2py.idl.unitree_go.msg.dds_.MotorState_', 20]
+    bms_state: 'unitree.unitree_sdk2py.idl.unitree_go.msg.dds_.BmsState_'
     foot_force: types.array[types.int16, 4]
     foot_force_est: types.array[types.int16, 4]
     tick: types.uint32
