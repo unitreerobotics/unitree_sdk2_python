@@ -39,7 +39,7 @@ cmake --build . --target install
 Enter the unitree_sdk2_python directory, set `CYCLONEDDS_HOME` to the path of the cyclonedds you just compiled, and then install unitree_sdk2_python.
 ```bash
 cd ~/unitree_sdk2_python
-export CYCLONEDDS_HOME="~/cyclonedds/install"
+export CYCLONEDDS_HOME=$HOME/cyclonedds/install
 pip3 install -e .
 ```
 For details, see: https://pypi.org/project/cyclonedds/#installing-with-pre-built-binaries
