@@ -14,8 +14,8 @@ class TestOption:
 
 option_list = [
     TestOption(name="damp", id=0),         
-    TestOption(name="stand_up", id=1),     
-    TestOption(name="sit", id=2),   
+    TestOption(name="Squat2StandUp", id=1),     
+    TestOption(name="StandUp2Squat", id=2),   
     TestOption(name="move forward", id=3),         
     TestOption(name="move lateral", id=4),    
     TestOption(name="move rotate", id=5),  
@@ -25,6 +25,7 @@ option_list = [
     TestOption(name="wave hand1", id=9), # wave hand without turning around
     TestOption(name="wave hand2", id=10), # wave hand and trun around  
     TestOption(name="shake hand", id=11),     
+    TestOption(name="Lie2StandUp", id=12),     
 ]
 
 class UserInterface:
@@ -83,9 +84,11 @@ if __name__ == "__main__":
         if test_option.id == 0:
             sport_client.Damp()
         elif test_option.id == 1:
-            sport_client.StandUp()
+            sport_client.Damp()
+            time.sleep(0.5)
+            sport_client.Squat2StandUp()
         elif test_option.id == 2:
-            sport_client.Sit()
+            sport_client.StandUp2Squat()
         elif test_option.id == 3:
             sport_client.Move(0.3,0,0)
         elif test_option.id == 4:
@@ -106,5 +109,9 @@ if __name__ == "__main__":
             sport_client.ShakeHand()
             time.sleep(3)
             sport_client.ShakeHand()
+        elif test_option.id == 12:
+            sport_client.Damp()
+            time.sleep(0.5)
+            sport_client.Lie2StandUp() # When using the Lie2StandUp function, ensure that the robot faces up and the ground is hard, flat and rough.
 
         time.sleep(1)

@@ -78,14 +78,17 @@ class LocoClient(Client):
     def Start(self):
         self.SetFsmId(200)
 
-    def Squat(self):
-        self.SetFsmId(2)
+    def Squat2StandUp(self):
+        self.SetFsmId(706)
+
+    def Lie2StandUp(self):
+        self.SetFsmId(702)
 
     def Sit(self):
         self.SetFsmId(3)
 
-    def StandUp(self):
-        self.SetFsmId(4)
+    def StandUp2Squat(self):
+        self.SetFsmId(706)
 
     def ZeroTorque(self):
         self.SetFsmId(0)
