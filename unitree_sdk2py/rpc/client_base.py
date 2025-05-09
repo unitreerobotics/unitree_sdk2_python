@@ -86,6 +86,28 @@ class ClientBase:
         else:
             return RPC_ERR_CLIENT_SEND
     
+    def _CallParamBinaryBase(self, apiId: int, parameter: str, binary: list, proirity: int = 0, leaseId: int = 0):
+        header = self.__SetHeader(apiId, leaseId, proirity, False)
+        request = Request(header, parameter, binary)
+
+        future = self.__stub.SendRequest(request, self.__timeout)
+        if future is None:
+            return RPC_ERR_CLIENT_SEND, None
+
+        result = future.GetResult(self.__timeout)
+
+        if result.code != FutureResult.FUTURE_SUCC:
+            self.__stub.RemoveFuture(request.header.identity.id)
+            code = RPC_ERR_CLIENT_API_TIMEOUT if result.code == FutureResult.FUTUTE_ERR_TIMEOUT else RPC_ERR_UNKNOWN
+            return code, None
+
+        response = result.value
+
+        if response.header.identity.api_id != apiId:
+            return RPC_ERR_CLIENT_API_NOT_MATCH, None
+        else:
+            return response.header.status.code, response.data
+
     def __SetHeader(self, apiId: int, leaseId: int, priority: int, noReply: bool):
         identity = RequestIdentity(time.monotonic_ns(), apiId)
         lease = RequestLease(leaseId)
