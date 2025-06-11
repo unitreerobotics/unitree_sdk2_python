@@ -1,170 +1,178 @@
+#!/usr/bin/env python3
+"""
+Interactive high-level control demo for Unitree Go2 Edu
+======================================================
+
+* Connects via DDS to the robot (`eth0`, `enp2s0`, …).
+* Lets you pick a command from a dynamic list and executes it via SportClient.
+* Covers **all** V1.1.6 high-level / AI-switcher functions that are exposed in the
+  current C++ header.  
+  (`WalkStair` was removed in V1.1.6 → no longer listed or called.)
+
+Run:
+
+    python3 go2_sport_client.py <networkInterface>
+
+Example:
+
+    python3 go2_sport_client.py eth0
+"""
+
 import time
 import sys
-from unitree_sdk2py.core.channel import ChannelSubscriber, ChannelFactoryInitialize
-from unitree_sdk2py.idl.default import unitree_go_msg_dds__SportModeState_
-from unitree_sdk2py.idl.unitree_go.msg.dds_ import SportModeState_
-from unitree_sdk2py.go2.sport.sport_client import (
-    SportClient,
-    PathPoint,
-    SPORT_PATH_POINT_SIZE,
-)
-import math
 from dataclasses import dataclass
 
+from unitree_sdk2py.core.channel import ChannelFactoryInitialize
+from unitree_sdk2py.go2.sport.sport_client import SportClient
+
+
+# --------------------------------------------------------------------------- #
+#  Option definitions                                                         #
+# --------------------------------------------------------------------------- #
 @dataclass
 class TestOption:
     name: str
     id: int
 
+
 option_list = [
-    TestOption(name="damp", id=0),         
-    TestOption(name="stand_up", id=1),     
-    TestOption(name="stand_down", id=2),   
-    TestOption(name="move forward", id=3),         
-    TestOption(name="move lateral", id=4),    
-    TestOption(name="move rotate", id=5),  
-    TestOption(name="stop_move", id=6),  
-    TestOption(name="switch_gait", id=7),    
-    TestOption(name="switch_gait", id=8),
-    TestOption(name="balanced stand", id=9),     
-    TestOption(name="recovery", id=10),
-    TestOption(name="recovery", id=10),       
-    TestOption(name="left flip", id=11),      
-    TestOption(name="back flip", id=12),
-    TestOption(name="free walk", id=13),  
-    TestOption(name="free bound", id=14), 
-    TestOption(name="free avoid", id=15),  
-    TestOption(name="walk stair", id=16), 
-    TestOption(name="walk upright", id=17),
-    TestOption(name="cross step", id=18),
-    TestOption(name="free jump", id=19)       
+    # legacy “sport” basic control
+    TestOption("damp", 0),
+    TestOption("stand_up", 1),
+    TestOption("stand_down", 2),
+    TestOption("move_forward", 3),
+    TestOption("move_lateral", 4),
+    TestOption("move_rotate", 5),
+    TestOption("stop_move", 6),
+    TestOption("switch_gait_0", 7),
+    TestOption("switch_gait_1", 8),
+    TestOption("balanced_stand", 9),
+    TestOption("recovery", 10),
+    # legacy flips
+    TestOption("left_flip", 11),
+    TestOption("back_flip", 12),
+    # AI / motion-switcher V2.0
+    TestOption("free_walk", 13),
+    TestOption("free_bound", 14),
+    TestOption("free_avoid", 15),
+    TestOption("walk_upright", 17),
+    TestOption("cross_step", 18),
+    TestOption("free_jump", 19),
+    TestOption("hand_stand", 20),
+    TestOption("classic_walk", 21),
+    TestOption("static_walk", 22),
+    TestOption("trot_run", 23),
+    TestOption("auto_recover_on", 24),
+    TestOption("auto_recover_off", 25),
+    TestOption("switch_avoid_mode", 26),
 ]
 
-class UserInterface:
-    def __init__(self):
-        self.test_option_ = None
 
-    def convert_to_int(self, input_str):
+# --------------------------------------------------------------------------- #
+#  Simple terminal UI helper                                                 #
+# --------------------------------------------------------------------------- #
+class UserInterface:
+    def __init__(self, option_holder: TestOption):
+        self.option_holder = option_holder
+
+    def _to_int(self, s):
         try:
-            return int(input_str)
+            return int(s)
         except ValueError:
             return None
 
-    def terminal_handle(self):
-        input_str = input("Enter id or name: \n")
+    def prompt(self):
+        user_in = input("Enter command (type 'list' to see all commands): ").strip()
 
-        if input_str == "list":
-            self.test_option_.name = None
-            self.test_option_.id = None
-            for option in option_list:
-                print(f"{option.name}, id: {option.id}")
+        # show list
+        if user_in == "list":
+            print("Available commands:")
+            for opt in option_list:
+                print(f"  {opt.name}  (id {opt.id})")
             return
 
-        for option in option_list:
-            if input_str == option.name or self.convert_to_int(input_str) == option.id:
-                self.test_option_.name = option.name
-                self.test_option_.id = option.id
-                print(f"Test: {self.test_option_.name}, test_id: {self.test_option_.id}")
+        # match name or id
+        for opt in option_list:
+            if user_in == opt.name or self._to_int(user_in) == opt.id:
+                self.option_holder.name = opt.name
+                self.option_holder.id = opt.id
+                print(f"Selected: {opt.name} (id {opt.id})")
                 return
 
-        print("No matching test option found.")
+        print("No match. Type 'list' to see available commands.")
 
+
+# --------------------------------------------------------------------------- #
+#  Main demo                                                                  #
+# --------------------------------------------------------------------------- #
 if __name__ == "__main__":
-
+    # network interface must be provided
     if len(sys.argv) < 2:
-        print(f"Usage: python3 {sys.argv[0]} networkInterface")
+        print(f"Usage: python3 {sys.argv[0]} <networkInterface>")
         sys.exit(-1)
 
-    print("WARNING: Please ensure there are no obstacles around the robot while running this example.")
+    print("WARNING: ensure the robot has free space around it.")
     input("Press Enter to continue...")
 
+    # DDS / RPC initialisation
     ChannelFactoryInitialize(0, sys.argv[1])
 
-    test_option = TestOption(name=None, id=None) 
-    user_interface = UserInterface()
-    user_interface.test_option_ = test_option
+    # prepare option holder + UI
+    current_opt = TestOption("", -1)
+    ui = UserInterface(current_opt)
 
-    sport_client = SportClient()  
-    sport_client.SetTimeout(10.0)
-    sport_client.Init()
+    # initialise SportClient
+    sport = SportClient()
+    sport.SetTimeout(10.0)
+    sport.Init()
+
+    # main loop
     while True:
+        ui.prompt()
+        cmd = current_opt.id
 
-        user_interface.terminal_handle()
+        # ---------- legacy sport ----------
+        if   cmd == 0:  sport.Damp()
+        elif cmd == 1:  sport.StandUp()
+        elif cmd == 2:  sport.StandDown()
+        elif cmd == 3:  sport.Move(0.3, 0,   0)
+        elif cmd == 4:  sport.Move(0,   0.3, 0)
+        elif cmd == 5:  sport.Move(0,   0,   0.5)
+        elif cmd == 6:  sport.StopMove()
+        elif cmd == 7:  sport.SwitchGait(0)
+        elif cmd == 8:  sport.SwitchGait(1)
+        elif cmd == 9:  sport.BalanceStand()
+        elif cmd == 10: sport.RecoveryStand()
+        elif cmd == 11: print("ret:", sport.LeftFlip())
+        elif cmd == 12: print("ret:", sport.BackFlip())
 
-        print(f"Updated Test Option: Name = {test_option.name}, ID = {test_option.id}\n")
-
-        if test_option.id == 0:
-            sport_client.Damp()
-        elif test_option.id == 1:
-            sport_client.StandUp()
-        elif test_option.id == 2:
-            sport_client.StandDown()
-        elif test_option.id == 3:
-            sport_client.Move(0.3,0,0)
-        elif test_option.id == 4:
-            sport_client.Move(0,0.3,0)
-        elif test_option.id == 5:
-            sport_client.Move(0,0,0.5)
-        elif test_option.id == 6:
-            sport_client.StopMove()
-        elif test_option.id == 7:
-            sport_client.SwitchGait(0)
-        elif test_option.id == 8:
-            sport_client.SwitchGait(1)
-        elif test_option.id == 9:
-            sport_client.BalanceStand()
-        elif test_option.id == 10:
-            sport_client.RecoveryStand()
-        elif test_option.id == 11:
-            ret = sport_client.LeftFlip()
-            print("ret: ",ret)
-        elif test_option.id == 12:
-            ret = sport_client.BackFlip()
-            print("ret: ",ret)
-        elif test_option.id == 13:
-            ret = sport_client.FreeWalk(True)
-            print("ret: ",ret)
-        elif test_option.id == 14:
-            ret = sport_client.FreeBound(True)
-            print("ret: ",ret)
-            time.sleep(2)
-            ret = sport_client.FreeBound(False)
-            print("ret: ",ret)
-        elif test_option.id == 14:
-            ret = sport_client.FreeBound(True)
-            print("ret: ",ret)
-            time.sleep(2)
-            ret = sport_client.FreeBound(False)
-            print("ret: ",ret)
-        elif test_option.id == 15:
-            ret = sport_client.FreeAvoid(True)
-            print("ret: ",ret)
-            time.sleep(2)
-            ret = sport_client.FreeAvoid(False)
-            print("ret: ",ret)
-        elif test_option.id == 16:
-            ret = sport_client.WalkStair(True)
-            print("ret: ",ret)
-            time.sleep(10)
-            ret = sport_client.WalkStair(False)
-            print("ret: ",ret)
-        elif test_option.id == 17:
-            ret = sport_client.WalkUpright(True)
-            print("ret: ",ret)
-            time.sleep(4)
-            ret = sport_client.WalkUpright(False)
-            print("ret: ",ret)
-        elif test_option.id == 18:
-            ret = sport_client.CrossStep(True)
-            print("ret: ",ret)
-            time.sleep(4)
-            ret = sport_client.CrossStep(False)
-            print("ret: ",ret)
-        elif test_option.id == 19:
-            ret = sport_client.FreeJump(True)
-            print("ret: ",ret)
-            time.sleep(4)
-            ret = sport_client.FreeJump(False)
-            print("ret: ",ret)
+        # ---------- AI / V2.0 switcher ----------
+        elif cmd == 13: print("ret:", sport.FreeWalk(True))
+        elif cmd == 14:
+            print("ret:", sport.FreeBound(True)); time.sleep(2)
+            print("ret:", sport.FreeBound(False))
+        elif cmd == 15:
+            print("ret:", sport.FreeAvoid(True)); time.sleep(2)
+            print("ret:", sport.FreeAvoid(False))
+        elif cmd == 17:
+            print("ret:", sport.WalkUpright(True)); time.sleep(4)
+            print("ret:", sport.WalkUpright(False))
+        elif cmd == 18:
+            print("ret:", sport.CrossStep(True)); time.sleep(4)
+            print("ret:", sport.CrossStep(False))
+        elif cmd == 19:
+            print("ret:", sport.FreeJump(True)); time.sleep(4)
+            print("ret:", sport.FreeJump(False))
+        elif cmd == 20:
+            print("ret:", sport.HandStand(True)); time.sleep(2)
+            print("ret:", sport.HandStand(False))
+        elif cmd == 21:
+            print("ret:", sport.ClassicWalk(True)); time.sleep(2)
+            print("ret:", sport.ClassicWalk(False))
+        elif cmd == 22: print("ret:", sport.StaticWalk())
+        elif cmd == 23: print("ret:", sport.TrotRun())
+        elif cmd == 24: print("ret:", sport.AutoRecoverSet(True))
+        elif cmd == 25: print("ret:", sport.AutoRecoverSet(False))
+        elif cmd == 26: print("ret:", sport.SwitchAvoidMode())
 
         time.sleep(1)
