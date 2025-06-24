@@ -1,5 +1,6 @@
 import time
 from typing import Any, Callable
+import threading
 from threading import Thread, Event
 
 from cyclonedds.domain import Domain, DomainParticipant
@@ -192,41 +193,51 @@ class ChannelFactory(Singleton):
     __participant = None
     __qos = None
 
+    __initialized = False
+    __init_lock = threading.Lock()
+
     def __init__(self):
         super().__init__()
 
     def Init(self, id: int, networkInterface: str = None, qos: Qos = None):
-        config = None
-        # choose config
-        if networkInterface is None:
-            config = ChannelConfigAutoDetermine
-        else:
-            config = ChannelConfigHasInterface.replace('$__IF_NAME__$', networkInterface)
+        if self.__class__.__initialized:
+            return True
+        
+        with self.__class__.__init_lock:
+            if self.__class__.__initialized:
+                return True
+            
+            config = None
+            # choose config
+            if networkInterface is None:
+                config = ChannelConfigAutoDetermine
+            else:
+                config = ChannelConfigHasInterface.replace('$__IF_NAME__$', networkInterface)
 
-        try:
-            self.__domain = Domain(id, config)
-        except DDSException as e:
-            print("[ChannelFactory] create domain error. msg:", e.msg)
-            return False
-        except:
-            print("[ChannelFactory] create domain error.")
-            return False
+            try:
+                self.__class__.__domain = Domain(id, config)
+            except DDSException as e:
+                print("[ChannelFactory] create domain error. msg:", e.msg)
+                return False
+            except:
+                print("[ChannelFactory] create domain error.")
+                return False
 
-        try:
-            self.__participant = DomainParticipant(id)
-        except DDSException as e:
-            print("[ChannelFactory] create domain participant error. msg:", e.msg)
-            return False
-        except:
-            print("[ChannelFactory] create domain participant error")
-            return False
+            try:
+                self.__class__.__participant = DomainParticipant(id)
+            except DDSException as e:
+                print("[ChannelFactory] create domain participant error. msg:", e.msg)
+                return False
+            except:
+                print("[ChannelFactory] create domain participant error")
+                return False
 
-        self.__qos = qos
-
-        return True
+            self.__class__.__qos = qos
+            self.__class__.__initialized = True
+            return True
 
     def CreateChannel(self, name: str, type: Any):
-        return Channel(self.__participant, name, type, self.__qos)
+        return Channel(self.__class__.__participant, name, type, self.__class__.__qos)
 
     def CreateSendChannel(self, name: str, type: Any):
         channel = self.CreateChannel(name, type)
