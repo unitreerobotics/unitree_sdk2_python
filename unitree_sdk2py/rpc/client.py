@@ -1,3 +1,5 @@
+from typing import List
+
 from .client_base import ClientBase
 from .lease_client import LeaseClient
 from .internal import *
@@ -46,6 +48,13 @@ class Client(ClientBase):
         ret, proirity, leaseId = self.__CheckApi(apiId)
         if ret == 0:
             return self._CallBase(apiId, parameter, proirity, leaseId)
+        else:
+            return RPC_ERR_CLIENT_API_NOT_REG, None
+
+    def _CallData(self, apiId: int, parameter: str, data: List[int]):
+        ret, proirity, leaseId = self.__CheckApi(apiId)
+        if ret == 0:
+            return self._CallDataBase(apiId, parameter, data, proirity, leaseId)
         else:
             return RPC_ERR_CLIENT_API_NOT_REG, None
             
