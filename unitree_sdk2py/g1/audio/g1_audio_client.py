@@ -1,4 +1,5 @@
 import json
+from typing import List
 
 from ...rpc.client import Client
 from .g1_audio_api import *
@@ -50,6 +51,21 @@ class AudioClient(Client):
         # p["name"] = 'volume'
         parameter = json.dumps(p)
         code, data = self._Call(ROBOT_API_ID_AUDIO_SET_VOLUME, parameter)
+        return code
+
+    def PlayStream(self, app_name: str, stream_id: str, pcm_data: List[int]):
+        p = {}
+        p["app_name"] = app_name
+        p["stream_id"] = stream_id
+        parameter = json.dumps(p)
+        code, data = self._CallData(ROBOT_API_ID_AUDIO_START_PLAY, parameter, pcm_data)
+        return code
+    
+    def PlayStop(self, app_name: str):
+        p = {}
+        p["app_name"] = app_name
+        parameter = json.dumps(p)
+        code, data = self._Call(ROBOT_API_ID_AUDIO_STOP_PLAY, parameter)
         return code
 
     def LedControl(self, R: int, G: int, B: int):
