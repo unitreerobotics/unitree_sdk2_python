@@ -38,7 +38,7 @@ class ClientBase:
 
         if result.code != FutureResult.FUTURE_SUCC:
             self.__stub.RemoveFuture(request.header.identity.id)
-            code = RPC_ERR_CLIENT_API_TIMEOUT if result.code == FutureResult.FUTUTE_ERR_TIMEOUT else RPC_ERR_UNKNOWN
+            code = RPC_ERR_CLIENT_API_TIMEOUT if result.code == FutureResult.FUTURE_ERR_TIMEOUT else RPC_ERR_UNKNOWN
             return code, None
 
         response = result.value
@@ -61,7 +61,7 @@ class ClientBase:
 
         if result.code != FutureResult.FUTURE_SUCC:
             self.__stub.RemoveFuture(request.header.identity.id)
-            code = RPC_ERR_CLIENT_API_TIMEOUT if result.code == FutureResult.FUTUTE_ERR_TIMEOUT else RPC_ERR_UNKNOWN
+            code = RPC_ERR_CLIENT_API_TIMEOUT if result.code == FutureResult.FUTURE_ERR_TIMEOUT else RPC_ERR_UNKNOWN
             return code, None
 
         response = result.value
@@ -91,7 +91,7 @@ class ClientBase:
         result = future.GetResult(self.__timeout)
         if result.code != FutureResult.FUTURE_SUCC:
             self.__stub.RemoveFuture(request.header.identity.id)
-            code = RPC_ERR_CLIENT_API_TIMEOUT if result.code == FutureResult.FUTUTE_ERR_TIMEOUT else RPC_ERR_UNKNOWN
+            code = RPC_ERR_CLIENT_API_TIMEOUT if result.code == FutureResult.FUTURE_ERR_TIMEOUT else RPC_ERR_UNKNOWN
             return code, None
 
         response = result.value

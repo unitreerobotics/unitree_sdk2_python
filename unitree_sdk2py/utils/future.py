@@ -15,7 +15,7 @@ class FutureState(Enum):
 """
 class FutureResult:
     FUTURE_SUCC = 0
-    FUTUTE_ERR_TIMEOUT = 1
+    FUTURE_ERR_TIMEOUT = 1
     FUTURE_ERR_FAILED = 2
     FUTURE_ERR_UNKNOWN = 3
 
@@ -67,7 +67,7 @@ class Future:
 
     def __WaitResult(self, timeout: float = None):
         if not self.__Wait(timeout):
-            return FutureResult(FutureResult.FUTUTE_ERR_TIMEOUT, "future wait timeout")
+            return FutureResult(FutureResult.FUTURE_ERR_TIMEOUT, "future wait timeout")
 
         if self.__IsReady():
             return FutureResult(FutureResult.FUTURE_SUCC, "success", self.__value)
