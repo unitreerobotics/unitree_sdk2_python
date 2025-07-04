@@ -71,9 +71,20 @@ class LocoClient(Client):
         parameter = json.dumps(p)
         code, data = self._Call(ROBOT_API_ID_LOCO_SET_ARM_TASK, parameter)
         return code
+    
+    # 7107
+    def SetSpeedMode(self, speed_mode: int):
+        p = {}
+        p["data"] = speed_mode
+        parameter = json.dumps(p)
+        code, data = self._Call(ROBOT_API_ID_LOCO_SET_SPEED_MODE, parameter)
+        return code
 
     def Damp(self):
         self.SetFsmId(1)
+    
+    def StandUp(self):
+        self.SetFsmId(4)
     
     def Start(self):
         self.SetFsmId(200)
@@ -92,6 +103,15 @@ class LocoClient(Client):
 
     def ZeroTorque(self):
         self.SetFsmId(0)
+    
+    def WalkMotion(self):
+        self.SetFsmId(500)
+    
+    def WalkMotion_3Dof_waist(self):
+        self.SetFsmId(501)
+    
+    def Run(self):
+        self.SetFsmId(800)
 
     def StopMove(self):
         self.SetVelocity(0., 0., 0.)
