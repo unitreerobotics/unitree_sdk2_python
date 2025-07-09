@@ -47,7 +47,6 @@ class AudioClient(Client):
     def SetVolume(self, volume: int):
         p = {}
         p["volume"] = volume
-        # p["name"] = 'volume'
         parameter = json.dumps(p)
         code, data = self._Call(ROBOT_API_ID_AUDIO_SET_VOLUME, parameter)
         return code
@@ -60,3 +59,13 @@ class AudioClient(Client):
         parameter = json.dumps(p)
         code, data = self._Call(ROBOT_API_ID_AUDIO_SET_RGB_LED, parameter)
         return code
+    
+    def PlayStream(self, app_name: str, stream_id: str, pcm_data: bytes):
+        param = json.dumps({"app_name": app_name, "stream_id": stream_id})
+        pcm_list = list(pcm_data) 
+        return self._CallRequestWithParamAndBin(ROBOT_API_ID_AUDIO_START_PLAY, param, pcm_list)
+    
+    def PlayStop(self, app_name: str):
+        parameter = json.dumps({"app_name": app_name})
+        self._Call(ROBOT_API_ID_AUDIO_STOP_PLAY, parameter)
+        return 0

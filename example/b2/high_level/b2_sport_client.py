@@ -11,17 +11,15 @@ class TestOption:
     id: int
 
 option_list = [
-    TestOption(name="damp", id=0),         
-    TestOption(name="stand_up", id=1),     
-    TestOption(name="stand_down", id=2),   
-    TestOption(name="move forward", id=3),         
-    TestOption(name="move lateral", id=4),    
-    TestOption(name="move rotate", id=5),  
-    TestOption(name="stop_move", id=6),  
-    TestOption(name="switch_gait", id=7),    
-    TestOption(name="switch_gait", id=8),     
-    TestOption(name="recovery", id=9),
-    TestOption(name="balanced stand", id=10)       
+    TestOption(name="Damp", id=0),         
+    TestOption(name="BalanceStand", id=1),     
+    TestOption(name="StopMove", id=2),   
+    TestOption(name="StandUp", id=3),         
+    TestOption(name="StandDown", id=4),    
+    TestOption(name="RecoveryStand", id=5),  
+    TestOption(name="Move", id=6),    
+    TestOption(name="FreeWalk", id=7),       
+    TestOption(name="ClassicWalk", id=8)    
 ]
 
 class UserInterface:
@@ -59,7 +57,9 @@ if __name__ == "__main__":
         print(f"Usage: python3 {sys.argv[0]} networkInterface")
         sys.exit(-1)
 
-    print("WARNING: Please ensure there are no obstacles around the robot while running this example.")
+    print("WARNING: Please ensure there are no obstacles around the robot while running this example.\n"
+      "NOTE: Some interfaces are not demonstrated in this example for safety reasons. "
+      "If you need to use them, please contact technical support: https://serviceconsole.unitree.com/index.html#/")
     input("Press Enter to continue...")
 
     ChannelFactoryInitialize(0, sys.argv[1])
@@ -80,26 +80,27 @@ if __name__ == "__main__":
         print(f"Updated Test Option: Name = {test_option.name}, ID = {test_option.id}")
 
         if test_option.id == 0:
-            sport_client.Damp()
+            print(f"ret:{sport_client.Damp()}")
         elif test_option.id == 1:
-            sport_client.StandUp()
+            print(f"ret:{sport_client.BalanceStand()}")
         elif test_option.id == 2:
-            sport_client.StandDown()
+            print(f"ret:{sport_client.StopMove()}")
         elif test_option.id == 3:
-            sport_client.Move(0.3,0,0)
+            print(f"ret:{sport_client.StandUp()}")
         elif test_option.id == 4:
-            sport_client.Move(0,0.3,0)
+            print(f"ret:{sport_client.StandDown()}")
         elif test_option.id == 5:
-            sport_client.Move(0,0,0.5)
+            print(f"ret:{sport_client.RecoveryStand()}")
         elif test_option.id == 6:
-            sport_client.StopMove()
+            print(f"ret:{sport_client.Move(0.5,0.0,0.0)}")
         elif test_option.id == 7:
-            sport_client.SwitchGait(0)
+            print(f"ret:{sport_client.FreeWalk()}")
         elif test_option.id == 8:
-            sport_client.SwitchGait(1)
-        elif test_option.id == 9:
-            sport_client.RecoveryStand()
-        elif test_option.id == 10:
-            sport_client.BalanceStand()
+            print(f"ret:{sport_client.ClassicWalk(True)}")
+            print(f"ret:{sport_client.Move(0.1,0.0,0.0)}")
+            time.sleep(2)
+            print(f"ret:{sport_client.ClassicWalk(False)}")
+            print(f"ret:{sport_client.Move(-0.3,0.0,0.0)}")
+            time.sleep(2)
 
         time.sleep(1)
