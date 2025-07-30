@@ -36,52 +36,45 @@ class SportClient(Client):
         self._SetApiVerson(SPORT_API_VERSION)
         
         # regist api
-        self._RegistApi(SPORT_API_ID_DAMP, 0)
-        self._RegistApi(SPORT_API_ID_BALANCESTAND, 0)
-        self._RegistApi(SPORT_API_ID_STOPMOVE, 0)
-        self._RegistApi(SPORT_API_ID_STANDUP, 0)
-        self._RegistApi(SPORT_API_ID_STANDDOWN, 0)
-        self._RegistApi(SPORT_API_ID_RECOVERYSTAND, 0)
-        self._RegistApi(SPORT_API_ID_EULER, 0)
-        self._RegistApi(SPORT_API_ID_MOVE, 0)
-        self._RegistApi(SPORT_API_ID_SIT, 0)
-        self._RegistApi(SPORT_API_ID_RISESIT, 0)
-        self._RegistApi(SPORT_API_ID_SWITCHGAIT, 0)
-        self._RegistApi(SPORT_API_ID_TRIGGER, 0)
-        self._RegistApi(SPORT_API_ID_BODYHEIGHT, 0)
-        self._RegistApi(SPORT_API_ID_FOOTRAISEHEIGHT, 0)
-        self._RegistApi(SPORT_API_ID_SPEEDLEVEL, 0)
-        self._RegistApi(SPORT_API_ID_HELLO, 0)
-        self._RegistApi(SPORT_API_ID_STRETCH, 0)
-        self._RegistApi(SPORT_API_ID_TRAJECTORYFOLLOW, 0)
-        self._RegistApi(SPORT_API_ID_CONTINUOUSGAIT, 0)
-        # self._RegistApi(SPORT_API_ID_CONTENT, 0)
-        self._RegistApi(SPORT_API_ID_WALLOW, 0)
-        self._RegistApi(SPORT_API_ID_DANCE1, 0)
-        self._RegistApi(SPORT_API_ID_DANCE2, 0)
-        # self._RegistApi(SPORT_API_ID_GETBODYHEIGHT, 0)
-        # self._RegistApi(SPORT_API_ID_GETFOOTRAISEHEIGHT, 0)
-        # self._RegistApi(SPORT_API_ID_GETSPEEDLEVEL, 0)
-        self._RegistApi(SPORT_API_ID_SWITCHJOYSTICK, 0)
-        self._RegistApi(SPORT_API_ID_POSE, 0)
-        self._RegistApi(SPORT_API_ID_SCRAPE, 0)
-        self._RegistApi(SPORT_API_ID_FRONTFLIP, 0)
-        self._RegistApi(SPORT_API_ID_FRONTJUMP, 0)
-        self._RegistApi(SPORT_API_ID_FRONTPOUNCE, 0)
-        self._RegistApi(SPORT_API_ID_WIGGLEHIPS, 0)
-        self._RegistApi(SPORT_API_ID_GETSTATE, 0)
-        self._RegistApi(SPORT_API_ID_ECONOMICGAIT, 0)
-        self._RegistApi(SPORT_API_ID_HEART, 0)
-
-        self._RegistApi(ROBOT_SPORT_API_ID_LEFTFLIP, 0)
-        self._RegistApi(ROBOT_SPORT_API_ID_BACKFLIP, 0)
-        self._RegistApi(ROBOT_SPORT_API_ID_FREEWALK, 0)
-        self._RegistApi(ROBOT_SPORT_API_ID_FREEBOUND, 0)
-        self._RegistApi(ROBOT_SPORT_API_ID_FREEJUMP, 0)
-        self._RegistApi(ROBOT_SPORT_API_ID_FREEAVOID, 0)
-        self._RegistApi(ROBOT_SPORT_API_ID_WALKSTAIR, 0)
-        self._RegistApi(ROBOT_SPORT_API_ID_WALKUPRIGHT, 0)
-        self._RegistApi(ROBOT_SPORT_API_ID_CROSSSTEP, 0)
+        self._RegistApi(SPORT_API_ID_DAMP, 0)                  # Damp
+        self._RegistApi(SPORT_API_ID_BALANCESTAND, 0)          # BalanceStand
+        self._RegistApi(SPORT_API_ID_STOPMOVE, 0)              # StopMove
+        self._RegistApi(SPORT_API_ID_STANDUP, 0)               # StandUp
+        self._RegistApi(SPORT_API_ID_STANDDOWN, 0)             # StandDown
+        self._RegistApi(SPORT_API_ID_RECOVERYSTAND, 0)         # RecoveryStand
+        self._RegistApi(SPORT_API_ID_EULER, 0)                 # Euler
+        self._RegistApi(SPORT_API_ID_MOVE, 0)                  # Move
+        self._RegistApi(SPORT_API_ID_SIT, 0)                   # Sit
+        self._RegistApi(SPORT_API_ID_RISESIT, 0)               # RiseSit
+        self._RegistApi(SPORT_API_ID_SPEEDLEVEL, 0)            # SpeedLevel
+        self._RegistApi(SPORT_API_ID_HELLO, 0)                 # Hello
+        self._RegistApi(SPORT_API_ID_STRETCH, 0)               # Stretch
+        self._RegistApi(SPORT_API_ID_CONTENT, 0)               # Content
+        self._RegistApi(SPORT_API_ID_DANCE1, 0)                # Dance1
+        self._RegistApi(SPORT_API_ID_DANCE2, 0)                # Dance2
+        self._RegistApi(SPORT_API_ID_SWITCHJOYSTICK, 0)        # SwitchJoystick
+        self._RegistApi(SPORT_API_ID_POSE, 0)                  # Pose
+        self._RegistApi(SPORT_API_ID_SCRAPE, 0)                # Scrape
+        self._RegistApi(SPORT_API_ID_FRONTFLIP, 0)             # FrontFlip
+        self._RegistApi(SPORT_API_ID_FRONTJUMP, 0)             # FrontJump
+        self._RegistApi(SPORT_API_ID_FRONTPOUNCE, 0)           # FrontPounce
+        self._RegistApi(SPORT_API_ID_HEART, 0)                 # Heart
+        self._RegistApi(SPORT_API_ID_STATICWALK, 0)            # StaticWalk
+        self._RegistApi(SPORT_API_ID_TROTRUN, 0)               # TrotRun
+        self._RegistApi(SPORT_API_ID_ECONOMICGAIT, 0)          # EconomicGait
+        self._RegistApi(SPORT_API_ID_LEFTFLIP, 0)              # LeftFlip
+        self._RegistApi(SPORT_API_ID_BACKFLIP, 0)              # BackFlip
+        self._RegistApi(SPORT_API_ID_HANDSTAND, 0)             # HandStand
+        self._RegistApi(SPORT_API_ID_FREEWALK, 0)              # FreeWalk
+        self._RegistApi(SPORT_API_ID_FREEBOUND, 0)             # FreeBound
+        self._RegistApi(SPORT_API_ID_FREEJUMP, 0)              # FreeJump
+        self._RegistApi(SPORT_API_ID_FREEAVOID, 0)             # FreeAvoid
+        self._RegistApi(SPORT_API_ID_CLASSICWALK, 0)           # ClassicWalk
+        self._RegistApi(SPORT_API_ID_WALKUPRIGHT, 0)           # WalkUpright
+        self._RegistApi(SPORT_API_ID_CROSSSTEP, 0)             # CrossStep
+        self._RegistApi(SPORT_API_ID_AUTORECOVERY_SET, 0)      # AutoRecoverySet
+        self._RegistApi(SPORT_API_ID_AUTORECOVERY_GET, 0)      # AutoRecoveryGet
+        self._RegistApi(SPORT_API_ID_SWITCHAVOIDMODE, 0)       # SwitchAvoidMode
 
     # 1001
     def Damp(self):
@@ -159,37 +152,6 @@ class SportClient(Client):
         code, data = self._Call(SPORT_API_ID_RISESIT, parameter)
         return code
 
-    # 1011
-    def SwitchGait(self, t: int):
-        p = {}
-        p["data"] = t
-        parameter = json.dumps(p)
-        code, data = self._Call(SPORT_API_ID_SWITCHGAIT, parameter)
-        return code
-
-    # 1012
-    def Trigger(self):
-        p = {}
-        parameter = json.dumps(p)
-        code, data = self._Call(SPORT_API_ID_TRIGGER, parameter)
-        return code
-
-    # 1013
-    def BodyHeight(self, height: float):
-        p = {}
-        p["data"] = height
-        parameter = json.dumps(p)
-        code, data = self._Call(SPORT_API_ID_BODYHEIGHT, parameter)
-        return code
-
-    # 1014
-    def FootRaiseHeight(self, height: float):
-        p = {}
-        p["data"] = height
-        parameter = json.dumps(p)
-        code, data = self._Call(SPORT_API_ID_FOOTRAISEHEIGHT, parameter)
-        return code
-
     # 1015
     def SpeedLevel(self, level: int):
         p = {}
@@ -212,49 +174,11 @@ class SportClient(Client):
         code, data = self._Call(SPORT_API_ID_STRETCH, parameter)
         return code
 
-    # 1018
-    def TrajectoryFollow(self, path: list):
-        l = len(path)
-        if l != SPORT_PATH_POINT_SIZE:
-            return SPORT_ERR_CLIENT_POINT_PATH
-
-        path_p = []
-        for i in range(l):
-            point = path[i]
-            p = {}
-            p["t_from_start"] = point.timeFromStart
-            p["x"] = point.x
-            p["y"] = point.y
-            p["yaw"] = point.yaw
-            p["vx"] = point.vx
-            p["vy"] = point.vy
-            p["vyaw"] = point.vyaw
-            path_p.append(p)
-            
-        parameter = json.dumps(path_p)
-        code = self._CallNoReply(SPORT_API_ID_TRAJECTORYFOLLOW, parameter)
-        return code
-
-    # 1019
-    def ContinuousGait(self, flag: int):
-        p = {}
-        p["data"] = flag
-        parameter = json.dumps(p)
-        code, data = self._Call(SPORT_API_ID_CONTINUOUSGAIT, parameter)
-        return code
-
-    # # 1020
-    # def Content(self):
-    #     p = {}
-    #     parameter = json.dumps(p)
-    #     code, data = self._Call(SPORT_API_ID_CONTENT, parameter)
-    #     return code
-    
-    # 1021
-    def Wallow(self):
+    # 1020
+    def Content(self):
         p = {}
         parameter = json.dumps(p)
-        code, data = self._Call(SPORT_API_ID_WALLOW, parameter)
+        code, data = self._Call(SPORT_API_ID_CONTENT, parameter)
         return code
 
     # 1022
@@ -270,33 +194,6 @@ class SportClient(Client):
         parameter = json.dumps(p)
         code, data = self._Call(SPORT_API_ID_DANCE2, parameter)
         return code
-
-    # 1025
-    def GetFootRaiseHeight(self):
-        p = {}
-        parameter = json.dumps(p)
-        
-        code, data = self._Call(SPORT_API_ID_GETFOOTRAISEHEIGHT, parameter)
-        
-        if code == 0:
-            d = json.loads(data)
-            return code, d["data"]
-        else:
-            return code, None
-            
-
-    # 1026
-    def GetSpeedLevel(self):
-        p = {}
-        parameter = json.dumps(p)
-        
-        code, data = self._Call(SPORT_API_ID_GETSPEEDLEVEL, parameter)
-        
-        if code == 0:
-            d = json.loads(data)
-            return code, d["data"]
-        else:
-            return code, None
 
     # 1027
     def SwitchJoystick(self, on: bool):
@@ -342,30 +239,6 @@ class SportClient(Client):
         code, data = self._Call(SPORT_API_ID_FRONTPOUNCE, parameter)
         return code
 
-    # 1033
-    def WiggleHips(self):
-        p = {}
-        parameter = json.dumps(p)
-        code, data = self._Call(SPORT_API_ID_WIGGLEHIPS, parameter)
-        return code
-
-    # 1034
-    def GetState(self, keys: list):
-        parameter = json.dumps(keys)
-        code, data = self._Call(SPORT_API_ID_GETSTATE, parameter)
-        if code == 0:
-            return code, json.loads(data)
-        else:
-            return code, None
-
-    # 1035
-    def EconomicGait(self, flag: bool):
-        p = {}
-        p["data"] = flag
-        parameter = json.dumps(p)
-        code, data = self._Call(SPORT_API_ID_ECONOMICGAIT, parameter)
-        return code
-
     # 1036
     def Heart(self):
         p = {}
@@ -373,74 +246,118 @@ class SportClient(Client):
         code, data = self._Call(SPORT_API_ID_HEART, parameter)
         return code
     
-    # 1042
+    # 2041
     def LeftFlip(self):
         p = {}
-        p["data"] = True
         parameter = json.dumps(p)
-        code, data = self._Call(ROBOT_SPORT_API_ID_LEFTFLIP, parameter)
+        code, data = self._Call(SPORT_API_ID_LEFTFLIP, parameter)
         return code
 
-    # 1044
+    # 2043
     def BackFlip(self):
         p = {}
-        p["data"] = True
         parameter = json.dumps(p)
-        code, data = self._Call(ROBOT_SPORT_API_ID_BACKFLIP, parameter)
+        code, data = self._Call(SPORT_API_ID_BACKFLIP, parameter)
         return code
 
-    # 1045
-    def FreeWalk(self, flag: bool):
+    # 2045
+    def FreeWalk(self):
         p = {}
-        p["data"] = True
         parameter = json.dumps(p)
-        code, data = self._Call(ROBOT_SPORT_API_ID_FREEWALK, parameter)
+        code, data = self._Call(SPORT_API_ID_FREEWALK, parameter)
         return code
 
-    # 1046
+    # 2046
     def FreeBound(self, flag: bool):
         p = {}
         p["data"] = flag
         parameter = json.dumps(p)
-        code, data = self._Call(ROBOT_SPORT_API_ID_FREEBOUND, parameter)
+        code, data = self._Call(SPORT_API_ID_FREEBOUND, parameter)
         return code
     
-    # 1047
+    # 2047
     def FreeJump(self, flag: bool):
         p = {}
         p["data"] = flag
         parameter = json.dumps(p)
-        code, data = self._Call(ROBOT_SPORT_API_ID_FREEJUMP, parameter)
+        code, data = self._Call(SPORT_API_ID_FREEJUMP, parameter)
         return code
 
-    # 1048
+    # 2048
     def FreeAvoid(self, flag: bool):
         p = {}
         p["data"] = flag
         parameter = json.dumps(p)
-        code, data = self._Call(ROBOT_SPORT_API_ID_FREEAVOID, parameter)
-        return code
-
-    # 1049
-    def WalkStair(self, flag: bool):
-        p = {}
-        p["data"] = flag
-        parameter = json.dumps(p)
-        code, data = self._Call(ROBOT_SPORT_API_ID_WALKSTAIR, parameter)
+        code, data = self._Call(SPORT_API_ID_FREEAVOID, parameter)
         return code
     
-    # 1050
+    # 2050
     def WalkUpright(self, flag: bool):
         p = {}
         p["data"] = flag
         parameter = json.dumps(p)
-        code, data = self._Call(ROBOT_SPORT_API_ID_WALKUPRIGHT, parameter)
+        code, data = self._Call(SPORT_API_ID_WALKUPRIGHT, parameter)
         return code
 
-    # 1051
+    # 2051
     def CrossStep(self, flag: bool):  
         p = {}
         p["data"] = flag
         parameter = json.dumps(p)
-        code, data = self._Call(ROBOT_SPORT_API_ID_CROSSSTEP, parameter)
+        code, data = self._Call(SPORT_API_ID_CROSSSTEP, parameter)
+        return code
+    
+    # 1061
+    def StaticWalk(self):
+        p = {}
+        parameter = json.dumps(p)
+        code, data = self._Call(SPORT_API_ID_STATICWALK, parameter)
+        return code
+ 
+    # 1062
+    def TrotRun(self):
+        p = {}
+        parameter = json.dumps(p)
+        code, data = self._Call(SPORT_API_ID_TROTRUN, parameter)
+        return code
+
+    # 2044
+    def HandStand(self, flag: bool):
+        p = {}
+        p["data"] = flag
+        parameter = json.dumps(p)
+        code, data = self._Call(SPORT_API_ID_HANDSTAND, parameter)
+        return code
+    # 2049
+    def ClassicWalk(self, flag: bool):
+        p = {}
+        p["data"] = flag
+        parameter = json.dumps(p)
+        code, data = self._Call(SPORT_API_ID_CLASSICWALK, parameter)
+        return code
+
+    # 2054
+    def AutoRecoverySet(self, enabled: bool):
+        p = {}
+        p["data"] = enabled
+        parameter = json.dumps(p)
+        code, data = self._Call(SPORT_API_ID_AUTORECOVERY_SET, parameter)
+        return code
+
+    # 2055
+    def AutoRecoveryGet(self):
+        p = {}
+        parameter = json.dumps(p)
+        code, data = self._Call(SPORT_API_ID_AUTORECOVERY_GET, parameter)
+        if code == 0:
+            d = json.loads(data)
+            return code, d["data"]
+        else:
+            return code, None
+
+    # 2058
+    def SwitchAvoidMode(self):
+        p = {}
+        parameter = json.dumps(p)
+        code, data = self._Call(SPORT_API_ID_SWITCHAVOIDMODE, parameter)
         return code
