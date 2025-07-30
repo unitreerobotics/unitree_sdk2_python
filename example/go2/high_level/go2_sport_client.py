@@ -24,17 +24,14 @@ option_list = [
     TestOption(name="move lateral", id=4),    
     TestOption(name="move rotate", id=5),  
     TestOption(name="stop_move", id=6),  
-    TestOption(name="switch_gait", id=7),    
-    TestOption(name="switch_gait", id=8),
+    TestOption(name="hand stand", id=7),
     TestOption(name="balanced stand", id=9),     
-    TestOption(name="recovery", id=10),
     TestOption(name="recovery", id=10),       
     TestOption(name="left flip", id=11),      
     TestOption(name="back flip", id=12),
     TestOption(name="free walk", id=13),  
     TestOption(name="free bound", id=14), 
     TestOption(name="free avoid", id=15),  
-    TestOption(name="walk stair", id=16), 
     TestOption(name="walk upright", id=17),
     TestOption(name="cross step", id=18),
     TestOption(name="free jump", id=19)       
@@ -71,14 +68,13 @@ class UserInterface:
 
 if __name__ == "__main__":
 
-    if len(sys.argv) < 2:
-        print(f"Usage: python3 {sys.argv[0]} networkInterface")
-        sys.exit(-1)
 
     print("WARNING: Please ensure there are no obstacles around the robot while running this example.")
     input("Press Enter to continue...")
-
-    ChannelFactoryInitialize(0, sys.argv[1])
+    if len(sys.argv)>1:
+        ChannelFactoryInitialize(0, sys.argv[1])
+    else:
+        ChannelFactoryInitialize(0)
 
     test_option = TestOption(name=None, id=None) 
     user_interface = UserInterface()
@@ -100,7 +96,8 @@ if __name__ == "__main__":
         elif test_option.id == 2:
             sport_client.StandDown()
         elif test_option.id == 3:
-            sport_client.Move(0.3,0,0)
+            ret = sport_client.Move(0.3,0,0)
+            print("ret: ",ret)
         elif test_option.id == 4:
             sport_client.Move(0,0.3,0)
         elif test_option.id == 5:
@@ -108,9 +105,9 @@ if __name__ == "__main__":
         elif test_option.id == 6:
             sport_client.StopMove()
         elif test_option.id == 7:
-            sport_client.SwitchGait(0)
-        elif test_option.id == 8:
-            sport_client.SwitchGait(1)
+            sport_client.HandStand(True)
+            time.sleep(4)
+            sport_client.HandStand(False)
         elif test_option.id == 9:
             sport_client.BalanceStand()
         elif test_option.id == 10:
@@ -122,13 +119,7 @@ if __name__ == "__main__":
             ret = sport_client.BackFlip()
             print("ret: ",ret)
         elif test_option.id == 13:
-            ret = sport_client.FreeWalk(True)
-            print("ret: ",ret)
-        elif test_option.id == 14:
-            ret = sport_client.FreeBound(True)
-            print("ret: ",ret)
-            time.sleep(2)
-            ret = sport_client.FreeBound(False)
+            ret = sport_client.FreeWalk()
             print("ret: ",ret)
         elif test_option.id == 14:
             ret = sport_client.FreeBound(True)
@@ -141,12 +132,6 @@ if __name__ == "__main__":
             print("ret: ",ret)
             time.sleep(2)
             ret = sport_client.FreeAvoid(False)
-            print("ret: ",ret)
-        elif test_option.id == 16:
-            ret = sport_client.WalkStair(True)
-            print("ret: ",ret)
-            time.sleep(10)
-            ret = sport_client.WalkStair(False)
             print("ret: ",ret)
         elif test_option.id == 17:
             ret = sport_client.WalkUpright(True)
