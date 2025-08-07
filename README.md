@@ -7,11 +7,6 @@ Python interface for unitree sdk2
 - cyclonedds == 0.10.2
 - numpy
 - opencv-python
-## Install unitree_sdk2_python
-
-```bash
-pip install unitree_sdk2py
-```
 
 ### Installing from source
 Execute the following commands in the terminal:
