@@ -10,6 +10,7 @@ authors = [
 ]
 dependencies = [
   "cyclonedds==0.11.0",
+  "fastcrc>=0.3.2",
   "numpy",
   "opencv-python",
 ]

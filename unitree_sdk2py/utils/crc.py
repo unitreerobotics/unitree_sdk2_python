@@ -1,6 +1,7 @@
 import struct
 import cyclonedds
 import cyclonedds.idl as idl
+from fastcrc import crc32
 
 from .singleton import Singleton
 from ..idl.unitree_go.msg.dds_ import LowCmd_
@@ -24,17 +25,6 @@ class CRC(Singleton):
         #size 2092
         self.__packFmtHGLowState = '<2I2B2xI' + '13fh2x' + 'B3x4f2hf7I' * 35 + '40B5I'
 
-        
-        script_dir = os.path.dirname(os.path.abspath(__file__))
-        self.platform = platform.system()
-        if self.platform == "Linux":
-            if platform.machine()=="x86_64":
-                self.crc_lib = ctypes.CDLL(script_dir + '/lib/crc_amd64.so')
-            elif platform.machine()=="aarch64":
-                self.crc_lib = ctypes.CDLL(script_dir + '/lib/crc_aarch64.so')
-
-            self.crc_lib.crc32_core.argtypes = (ctypes.POINTER(ctypes.c_uint32), ctypes.c_uint32)
-            self.crc_lib.crc32_core.restype = ctypes.c_uint32
     
     def Crc(self, msg: idl.IdlStruct):
         if msg.__idl_typename__ == 'unitree_go.msg.dds_.LowCmd_':
@@ -190,7 +180,7 @@ class CRC(Singleton):
             d = ((packData[i*4+3] << 24) | (packData[i*4+2] << 16) | (packData[i*4+1] << 8) | (packData[i*4]))
             calcData.append(d)
 
-        return calcData
+        return struct.pack("=" + "I"*len(calcData), *calcData)
 
     def _crc_py(self, data):
         bit = 0
@@ -222,7 +212,4 @@ class CRC(Singleton):
         return crc
 
     def __Crc32(self, data):
-        if self.platform == "Linux":
-            return self._crc_ctypes(data)
-        else:
-            return self._crc_py(data)
+        return crc32.mpeg_2(data)
