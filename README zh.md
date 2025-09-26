@@ -33,7 +33,7 @@ cmake --build . --target install
 进入 unitree_sdk2_python 目录，设置 `CYCLONEDDS_HOME` 为刚刚编译好的 cyclonedds 所在路径，再安装 unitree_sdk2_python
 ```bash
 cd ~/unitree_sdk2_python
-export CYCLONEDDS_HOME="~/cyclonedds/install"
+export CYCLONEDDS_HOME=$HOME/cyclonedds/install
 pip3 install -e .
 ```
 
