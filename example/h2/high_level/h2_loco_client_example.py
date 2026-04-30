@@ -100,9 +100,9 @@ if __name__ == "__main__":
         elif test_option.id == 7:
             sport_client.SetFsmId(4)
         elif test_option.id == 8:
-            sport_client.SetVelocity(0.0, 0.0, 0.5, 1.0)
+            sport_client.SetVelocity(0.0, 0.0, 1.0, 4.0)
         elif test_option.id == 9:
-            sport_client.Move(0.0, 0.0, 0.5)
+            sport_client.Move(0.0, 0.0, 2)
         elif test_option.id == 10:
             sport_client.SwitchMoveMode(True)
         elif test_option.id == 11:
