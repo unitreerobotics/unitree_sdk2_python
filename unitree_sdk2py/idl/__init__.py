@@ -1,5 +1,5 @@
 from .default import *
-from . import builtin_interfaces, geometry_msgs, sensor_msgs, std_msgs, unitree_go, unitree_api
+from . import builtin_interfaces, geometry_msgs, sensor_msgs, std_msgs, unitree_go, unitree_api, unitree_hg
 
 __all__ = [
     "builtin_interfaces",
