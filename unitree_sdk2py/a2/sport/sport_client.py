@@ -1,5 +1,5 @@
 import json
-from typing import Dict, Optional, Tuple
+from typing import Dict
 
 from ...rpc.client import Client
 from .sport_api import *
@@ -172,14 +172,11 @@ class SportClient(Client):
         code, data = self._Call(ROBOT_SPORT_API_ID_SETAUTORECOVERY, parameter)
         return code
 
-    def GetState(self) -> Tuple[int, Optional[Dict[str, str]]]:
+    def GetState(self, state_map: Dict[str, str]) -> int:
         p = {}
         parameter = json.dumps(p)
         code, data = self._Call(ROBOT_SPORT_API_ID_GETSTATE, parameter)
-        if code != 0:
-            return code, None
-        try:
-            return code, json.loads(data) if data else {}
-        except Exception:
-            return code, None
+        if data:
+            state_map.update(json.loads(data))
+        return code
 
