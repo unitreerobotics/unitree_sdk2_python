@@ -111,14 +111,13 @@ if __name__ == "__main__":
         elif test_option.id == 7:
             res = sport_client.SpeedLevel(1)
         elif test_option.id == 8:
-            code, state_map = sport_client.GetState()
-            res = code
-            if state_map is not None:
-                print(f"fsm_id: {state_map.get('fsm_id')}")
-                print(f"fsm_name: {state_map.get('fsm_name')}")
-                print(f"speed_level: {state_map.get('speed_level')}")
-                print(f"auto_recovery_switch: {state_map.get('auto_recovery_switch')}")
-                print(f"process_state: {state_map.get('process_state')}")
+            state_map = {}
+            res = sport_client.GetState(state_map)
+            print(f"fsm_id: {state_map['fsm_id']}")
+            print(f"fsm_name: {state_map['fsm_name']}")
+            print(f"speed_level: {state_map['speed_level']}")
+            print(f"auto_recovery_switch: {state_map['auto_recovery_switch']}")
+            print(f"process_state: {state_map['process_state']}")
         elif test_option.id == 9:
             res = sport_client.SetAutoRecovery(0)
         elif test_option.id == 10:
