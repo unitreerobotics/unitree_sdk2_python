@@ -28,6 +28,9 @@ class RobotStateClient(Client):
         self._RegistApi(ROBOT_STATE_API_ID_SERVICE_SWITCH, 0)
         self._RegistApi(ROBOT_STATE_API_ID_REPORT_FREQ, 0)
         self._RegistApi(ROBOT_STATE_API_ID_SERVICE_LIST, 0)
+        self._RegistApi(ROBOT_STATE_API_ID_LOWPOWER_SWITCH, 0)
+        self._RegistApi(ROBOT_STATE_API_ID_LOWPOWER_STATUS, 0)
+        self._RegistApi(ROBOT_STATE_API_ID_GET_PKG_VERSION, 0)
 
     def ServiceList(self):
         p = {}
@@ -82,3 +85,35 @@ class RobotStateClient(Client):
         
         code, data = self._Call(ROBOT_STATE_API_ID_REPORT_FREQ, p)
         return code
+
+    def LowPowerSwitch(self, swit: int):
+        p = {}
+        p["switch"] = swit
+        parameter = json.dumps(p)
+
+        code, data = self._Call(ROBOT_STATE_API_ID_LOWPOWER_SWITCH, parameter)
+        return code
+
+    def LowPowerStatus(self):
+        p = {}
+        parameter = json.dumps(p)
+
+        code, data = self._Call(ROBOT_STATE_API_ID_LOWPOWER_STATUS, parameter)
+
+        if code != 0:
+            return code, None
+
+        d = json.loads(data)
+        return code, d["status"]
+
+    def GetPkgVersion(self):
+        p = {}
+        parameter = json.dumps(p)
+
+        code, data = self._Call(ROBOT_STATE_API_ID_GET_PKG_VERSION, parameter)
+
+        if code != 0:
+            return code, None, None
+
+        d = json.loads(data)
+        return code, d["packageVersion"], d["moduleVersionMap"]
