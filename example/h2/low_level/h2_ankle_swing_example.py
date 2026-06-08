@@ -52,18 +52,39 @@ class H2JointIndex:
     LeftHipRoll = 1
     LeftHipYaw = 2
     LeftKnee = 3
-    LeftAnklePitch = 4
-    LeftAnkleB = 4
-    LeftAnkleRoll = 5
-    LeftAnkleA = 5
+    LeftAnkleRoll = 4
+    LeftAnkleRollRaw = 4
+    LeftAnklePitch = 5
+    LeftAnklePitchRaw = 5
     RightHipPitch = 6
     RightHipRoll = 7
     RightHipYaw = 8
     RightKnee = 9
-    RightAnklePitch = 10
-    RightAnkleB = 10
-    RightAnkleRoll = 11
-    RightAnkleA = 11
+    RightAnkleRoll = 10
+    RightAnkleRollRaw = 10
+    RightAnklePitch = 11
+    RightAnklePitchRaw = 11
+    WaistYaw = 12
+    WaistRoll = 13
+    WaistA = 13
+    WaistPitch = 14
+    WaistB = 14
+    LeftShoulderPitch = 15
+    LeftShoulderRoll = 16
+    LeftShoulderYaw = 17
+    LeftElbow = 18
+    LeftWristRoll = 19
+    LeftWristpitch = 20
+    LeftWristyaw = 21
+    RightShoulderPitch = 22
+    RightShoulderRoll = 23
+    RightShoulderYaw = 24
+    RightElbow = 25
+    RightWristRoll = 26
+    RightWristpitch = 27
+    RightWristyaw = 28
+    HEAD_PITCH = 29
+    HEAD_YAW = 30
 
 
 class Custom:
@@ -158,10 +179,10 @@ class Custom:
             L_B_des = +max_B * np.sin(np.pi * t + np.pi)
             R_A_des = -max_A * np.sin(np.pi * t)
             R_B_des = -max_B * np.sin(np.pi * t + np.pi)
-            self.low_cmd.motor_cmd[joint_idx_in_idl[H2JointIndex.LeftAnkleA]].q = float(L_A_des)
-            self.low_cmd.motor_cmd[joint_idx_in_idl[H2JointIndex.LeftAnkleB]].q = float(L_B_des)
-            self.low_cmd.motor_cmd[joint_idx_in_idl[H2JointIndex.RightAnkleA]].q = float(R_A_des)
-            self.low_cmd.motor_cmd[joint_idx_in_idl[H2JointIndex.RightAnkleB]].q = float(R_B_des)
+            self.low_cmd.motor_cmd[joint_idx_in_idl[H2JointIndex.LeftAnklePitchRaw]].q = float(L_A_des)
+            self.low_cmd.motor_cmd[joint_idx_in_idl[H2JointIndex.LeftAnkleRollRaw]].q = float(L_B_des)
+            self.low_cmd.motor_cmd[joint_idx_in_idl[H2JointIndex.RightAnklePitchRaw]].q = float(R_A_des)
+            self.low_cmd.motor_cmd[joint_idx_in_idl[H2JointIndex.RightAnkleRollRaw]].q = float(R_B_des)
 
         self.low_cmd.crc = self.crc.Crc(self.low_cmd)
         self.lowcmd_publisher_.Write(self.low_cmd)
