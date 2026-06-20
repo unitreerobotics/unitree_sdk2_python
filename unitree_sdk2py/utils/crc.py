@@ -12,41 +12,50 @@ import ctypes
 import os
 import platform
 
+
 class CRC(Singleton):
     def __init__(self):
-        #4 bytes aligned, little-endian format.
-        #size 812
-        self.__packFmtLowCmd = '<4B4IH2x' + 'B3x5f3I' * 20 + '4B' + '55Bx2I'
-        #size 1180
-        self.__packFmtLowState = '<4B4IH2x' + '13fb3x' + 'B3x7fb3x3I' * 20 + '4BiH4b15H' + '8hI41B3xf2b2x2f4h2I'
-        #size 1004
-        self.__packFmtHGLowCmd = '<2B2x' + 'B3x5fI' * 35 + '5I'
-        #size 2092
-        self.__packFmtHGLowState = '<2I2B2xI' + '13fh2x' + 'B3x4f2hf7I' * 35 + '40B5I'
+        # 4 bytes aligned, little-endian format.
+        # size 812
+        self.__packFmtLowCmd = "<4B4IH2x" + "B3x5f3I" * 20 + "4B" + "55Bx2I"
+        # size 1180
+        self.__packFmtLowState = (
+            "<4B4IH2x"
+            + "13fb3x"
+            + "B3x7fb3x3I" * 20
+            + "4BiH4b15H"
+            + "8hI41B3xf2b2x2f4h2I"
+        )
+        # size 1004
+        self.__packFmtHGLowCmd = "<2B2x" + "B3x5fI" * 35 + "5I"
+        # size 2092
+        self.__packFmtHGLowState = "<2I2B2xI" + "13fh2x" + "B3x4f2hf7I" * 35 + "40B5I"
 
-        
         script_dir = os.path.dirname(os.path.abspath(__file__))
         self.platform = platform.system()
         if self.platform == "Linux":
-            if platform.machine()=="x86_64":
-                self.crc_lib = ctypes.CDLL(script_dir + '/lib/crc_amd64.so')
-            elif platform.machine()=="aarch64":
-                self.crc_lib = ctypes.CDLL(script_dir + '/lib/crc_aarch64.so')
+            if platform.machine() == "x86_64":
+                self.crc_lib = ctypes.CDLL(script_dir + "/lib/crc_amd64.so")
+            elif platform.machine() == "aarch64":
+                self.crc_lib = ctypes.CDLL(script_dir + "/lib/crc_aarch64.so")
 
-            self.crc_lib.crc32_core.argtypes = (ctypes.POINTER(ctypes.c_uint32), ctypes.c_uint32)
+            self.crc_lib.crc32_core.argtypes = (
+                ctypes.POINTER(ctypes.c_uint32),
+                ctypes.c_uint32,
+            )
             self.crc_lib.crc32_core.restype = ctypes.c_uint32
-    
+
     def Crc(self, msg: idl.IdlStruct):
-        if msg.__idl_typename__ == 'unitree_go.msg.dds_.LowCmd_':
+        if msg.__idl_typename__ == "unitree_go.msg.dds_.LowCmd_":
             return self.__Crc32(self.__PackLowCmd(msg))
-        elif msg.__idl_typename__ == 'unitree_go.msg.dds_.LowState_':
+        elif msg.__idl_typename__ == "unitree_go.msg.dds_.LowState_":
             return self.__Crc32(self.__PackLowState(msg))
-        if msg.__idl_typename__ == 'unitree_hg.msg.dds_.LowCmd_':
+        if msg.__idl_typename__ == "unitree_hg.msg.dds_.LowCmd_":
             return self.__Crc32(self.__PackHGLowCmd(msg))
-        elif msg.__idl_typename__ == 'unitree_hg.msg.dds_.LowState_':
+        elif msg.__idl_typename__ == "unitree_hg.msg.dds_.LowState_":
             return self.__Crc32(self.__PackHGLowState(msg))
         else:
-            raise TypeError('unknown IDL message type to crc')
+            raise TypeError("unknown IDL message type to crc")
 
     def __PackLowCmd(self, cmd: LowCmd_):
         origData = []
@@ -86,13 +95,13 @@ class CRC(Singleton):
         origData.extend(state.sn)
         origData.extend(state.version)
         origData.append(state.bandwidth)
-        
+
         origData.extend(state.imu_state.quaternion)
         origData.extend(state.imu_state.gyroscope)
         origData.extend(state.imu_state.accelerometer)
         origData.extend(state.imu_state.rpy)
         origData.append(state.imu_state.temperature)
-        
+
         for i in range(20):
             origData.append(state.motor_state[i].mode)
             origData.append(state.motor_state[i].q)
@@ -115,7 +124,7 @@ class CRC(Singleton):
         origData.extend(state.bms_state.bq_ntc)
         origData.extend(state.bms_state.mcu_ntc)
         origData.extend(state.bms_state.cell_vol)
-        
+
         origData.extend(state.foot_force)
         origData.extend(state.foot_force_est)
         origData.append(state.tick)
@@ -157,13 +166,13 @@ class CRC(Singleton):
         origData.append(state.mode_pr)
         origData.append(state.mode_machine)
         origData.append(state.tick)
-        
+
         origData.extend(state.imu_state.quaternion)
         origData.extend(state.imu_state.gyroscope)
         origData.extend(state.imu_state.accelerometer)
         origData.extend(state.imu_state.rpy)
         origData.append(state.imu_state.temperature)
-        
+
         for i in range(35):
             origData.append(state.motor_state[i].mode)
             origData.append(state.motor_state[i].q)
@@ -184,10 +193,15 @@ class CRC(Singleton):
 
     def __Trans(self, packData):
         calcData = []
-        calcLen = ((len(packData)>>2)-1)
+        calcLen = (len(packData) >> 2) - 1
 
         for i in range(calcLen):
-            d = ((packData[i*4+3] << 24) | (packData[i*4+2] << 16) | (packData[i*4+1] << 8) | (packData[i*4]))
+            d = (
+                (packData[i * 4 + 3] << 24)
+                | (packData[i * 4 + 2] << 16)
+                | (packData[i * 4 + 1] << 8)
+                | (packData[i * 4])
+            )
             calcData.append(d)
 
         return calcData
@@ -195,7 +209,7 @@ class CRC(Singleton):
     def _crc_py(self, data):
         bit = 0
         crc = 0xFFFFFFFF
-        polynomial = 0x04c11db7
+        polynomial = 0x04C11DB7
 
         for i in range(len(data)):
             bit = 1 << 31
@@ -212,13 +226,13 @@ class CRC(Singleton):
                     crc ^= polynomial
 
                 bit >>= 1
-        
+
         return crc
 
     def _crc_ctypes(self, data):
         uint32_array = (ctypes.c_uint32 * len(data))(*data)
         length = len(data)
-        crc=self.crc_lib.crc32_core(uint32_array, length)
+        crc = self.crc_lib.crc32_core(uint32_array, length)
         return crc
 
     def __Crc32(self, data):
