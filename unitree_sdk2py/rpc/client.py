@@ -92,6 +92,13 @@ class Client(ClientBase):
         else:
             return RPC_ERR_CLIENT_API_NOT_REG
     
+    def _CallParamBinary(self, apiId: int, parameter: str, binary: list):
+        ret, proirity, leaseId = self.__CheckApi(apiId)
+        if ret == 0:
+            return self._CallParamBinaryBase(apiId, parameter, binary, proirity, leaseId)
+        else:
+            return RPC_ERR_CLIENT_API_NOT_REG, None
+
     def _RegistApi(self, apiId: int, proirity: int):
         self.__apiMapping[apiId] = proirity
     
