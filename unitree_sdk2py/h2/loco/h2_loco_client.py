@@ -114,7 +114,7 @@ class LocoClient(Client):
         self.SetFsmId(1)
 
     def Start(self):
-        self.SetFsmId(500)
+        self.SetFsmId(601)
 
     def Squat(self):
         self.SetFsmId(2)
