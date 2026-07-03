@@ -164,3 +164,70 @@ def play_pcm_stream(client, pcm_list, stream_name="example", chunk_size=96000, s
         offset += current_chunk_size
         chunk_index += 1
         time.sleep(sleep_time)
+
+def record_pcm_multicast_to_wav(
+    output_wav: str,
+    group_ip: str = "239.168.123.161",  # put your robot IP here
+    port: int = 5555,
+    iface_ip: str = "192.168.123.99",   # put your dev PC IP here
+    record_seconds: float = 5.0,
+    sample_rate: int = 16000,
+    num_channels: int = 1,
+    recv_buf_bytes: int = 65536,
+    socket_timeout_sec: float = 5.0,
+):
+    import socket, struct, time
+
+    bytes_per_sec = sample_rate * num_channels * 2
+    target_bytes = int(record_seconds * bytes_per_sec)
+
+    print(f"[INFO] multicast group={group_ip} port={port} iface_ip={iface_ip}")
+    print(f"[INFO] recording {record_seconds}s -> target_bytes={target_bytes}")
+
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
+    try:
+        sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        try:
+            sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
+        except OSError:
+            pass
+
+        sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_IF, socket.inet_aton(iface_ip))
+        sock.bind(("", port))
+
+        mreq = struct.pack("=4s4s", socket.inet_aton(group_ip), socket.inet_aton(iface_ip))
+        sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
+
+        sock.settimeout(socket_timeout_sec)
+
+        total = 0
+        pcm_samples = []
+        t0 = time.time()
+        print("[INFO] start record!")
+
+        while total < target_bytes:
+            try:
+                data, _ = sock.recvfrom(recv_buf_bytes)
+            except socket.timeout:
+                raise RuntimeError("Timed out waiting for mic packets. Stream may be off or interface join is wrong.")
+
+            if not data:
+                continue
+            if len(data) % 2 == 1:
+                data = data[:-1]
+
+            sample_count = len(data) // 2
+            pcm_samples.extend(struct.unpack("<" + "h" * sample_count, data))
+            total += len(data)
+
+        elapsed = time.time() - t0
+        print(f"[INFO] record finish! received_bytes={total} elapsed={elapsed:.2f}s samples={len(pcm_samples)}")
+
+        ok = write_wave(output_wav, sample_rate, pcm_samples, num_channels=num_channels)
+        if not ok:
+            raise RuntimeError("write_wave failed")
+
+        print(f"[INFO] saved to {output_wav}")
+
+    finally:
+        sock.close()
