@@ -93,9 +93,12 @@ class LocoClient(Client):
         return code
 
     # 7111
-    def SwitchToInternalCtrl(self, mode: int):
+    def SwitchToInternalCtrl(self, mode: InternalFsmMode):
+        if not isinstance(mode, InternalFsmMode):
+            raise TypeError("mode must be an InternalFsmMode")
+
         p = {}
-        p["data"] = mode
+        p["data"] = int(mode)
         parameter = json.dumps(p)
         code, data = self._Call(ROBOT_API_ID_LOCO_SWITCH_TO_INTERNAL_CTRL, parameter)
         return code

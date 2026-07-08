@@ -1,3 +1,5 @@
+from enum import IntEnum as _IntEnum
+
 """
 " service name
 """
@@ -29,9 +31,10 @@ ROBOT_API_ID_LOCO_SET_ARM_TASK = 7106
 ROBOT_API_ID_LOCO_SWITCH_TO_USER_CTRL = 7110
 ROBOT_API_ID_LOCO_SWITCH_TO_INTERNAL_CTRL = 7111
 
-INTERNAL_FSM_MODE_LAST = 0
-INTERNAL_FSM_MODE_PASSIVE = 1
-INTERNAL_FSM_MODE_WALKRUN = 2
+class InternalFsmMode(_IntEnum):
+    LAST = 0
+    PASSIVE = 1
+    WALKRUN = 2
 
 """
 " error code

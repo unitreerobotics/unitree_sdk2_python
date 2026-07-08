@@ -4,6 +4,7 @@ from unitree_sdk2py.core.channel import ChannelSubscriber, ChannelFactoryInitial
 from unitree_sdk2py.idl.default import unitree_go_msg_dds__SportModeState_
 from unitree_sdk2py.idl.unitree_go.msg.dds_ import SportModeState_
 from unitree_sdk2py.g1.loco.g1_loco_client import LocoClient
+from unitree_sdk2py.g1.loco.g1_loco_api import InternalFsmMode
 import math
 from dataclasses import dataclass
 
@@ -26,6 +27,10 @@ option_list = [
     TestOption(name="wave hand2", id=10), # wave hand and trun around  
     TestOption(name="shake hand", id=11),     
     TestOption(name="Lie2StandUp", id=12),     
+    TestOption(name="switch to user ctrl briefly", id=13),
+    TestOption(name="switch to internal ctrl last", id=14),
+    TestOption(name="switch to internal ctrl passive", id=15),
+    TestOption(name="switch to internal ctrl walkrun", id=16),
 ]
 
 class UserInterface:
@@ -113,5 +118,30 @@ if __name__ == "__main__":
             sport_client.Damp()
             time.sleep(0.5)
             sport_client.Lie2StandUp() # When using the Lie2StandUp function, ensure that the robot faces up and the ground is hard, flat and rough.
+        elif test_option.id == 13:
+            print("Before SwitchToUserCtrl:", sport_client.GetFsmId())
+            try:
+                print("SwitchToUserCtrl:", sport_client.SwitchToUserCtrl())
+                time.sleep(0.2)
+                print("After SwitchToUserCtrl:", sport_client.GetFsmId())
+            finally:
+                print("Restore internal ctrl:", sport_client.SwitchToInternalCtrl(InternalFsmMode.LAST))
+                time.sleep(0.2)
+                print("After restore:", sport_client.GetFsmId())
+        elif test_option.id == 14:
+            print("Before SwitchToInternalCtrl:", sport_client.GetFsmId())
+            print("SwitchToInternalCtrl:", sport_client.SwitchToInternalCtrl(InternalFsmMode.LAST))
+            time.sleep(0.2)
+            print("After SwitchToInternalCtrl:", sport_client.GetFsmId())
+        elif test_option.id == 15:
+            print("Before SwitchToInternalCtrl:", sport_client.GetFsmId())
+            print("SwitchToInternalCtrl:", sport_client.SwitchToInternalCtrl(InternalFsmMode.PASSIVE))
+            time.sleep(0.2)
+            print("After SwitchToInternalCtrl:", sport_client.GetFsmId())
+        elif test_option.id == 16:
+            print("Before SwitchToInternalCtrl:", sport_client.GetFsmId())
+            print("SwitchToInternalCtrl:", sport_client.SwitchToInternalCtrl(InternalFsmMode.WALKRUN))
+            time.sleep(0.2)
+            print("After SwitchToInternalCtrl:", sport_client.GetFsmId())
 
         time.sleep(1)
