@@ -29,6 +29,8 @@ class LocoClient(Client):
         self._RegistApi(ROBOT_API_ID_LOCO_SET_STAND_HEIGHT, 0)
         self._RegistApi(ROBOT_API_ID_LOCO_SET_VELOCITY, 0)
         self._RegistApi(ROBOT_API_ID_LOCO_SET_ARM_TASK, 0)
+        self._RegistApi(ROBOT_API_ID_LOCO_SWITCH_TO_USER_CTRL, 0)
+        self._RegistApi(ROBOT_API_ID_LOCO_SWITCH_TO_INTERNAL_CTRL, 0)
 
     # 7001
     def GetFsmId(self):
@@ -80,6 +82,22 @@ class LocoClient(Client):
         p["data"] = task_id
         parameter = json.dumps(p)
         code, data = self._Call(ROBOT_API_ID_LOCO_SET_ARM_TASK, parameter)
+        return code
+
+    # 7110
+    def SwitchToUserCtrl(self):
+        p = {}
+        p["data"] = False
+        parameter = json.dumps(p)
+        code, data = self._Call(ROBOT_API_ID_LOCO_SWITCH_TO_USER_CTRL, parameter)
+        return code
+
+    # 7111
+    def SwitchToInternalCtrl(self, mode: int):
+        p = {}
+        p["data"] = mode
+        parameter = json.dumps(p)
+        code, data = self._Call(ROBOT_API_ID_LOCO_SWITCH_TO_INTERNAL_CTRL, parameter)
         return code
 
     def Damp(self):
