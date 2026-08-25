@@ -53,6 +53,6 @@ class BQueue:
     def Interrupt(self, notifyAll: bool = False):
         with self.__condition:
             if notifyAll:
-                self.__condition.notify()
-            else:
                 self.__condition.notify_all()
+            else:
+                self.__condition.notify()
