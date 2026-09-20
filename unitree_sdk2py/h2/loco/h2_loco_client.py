@@ -170,10 +170,10 @@ class LocoClient(Client):
             return self.SetTaskId(3 if self.first_shake_hand_stage_ else 2)
 
     def EnableArmSDK(self):
-        self.SetArmSdkStatus(True)
+        return self.SetArmSdkStatus(True)
 
     def DisableArmSDK(self):
-        self.SetArmSdkStatus(False)
+        return self.SetArmSdkStatus(False)
 
     def GetFsmId(self):
         p = {}
@@ -246,4 +246,3 @@ class LocoClient(Client):
             return code, None, None
         js = json.loads(data)
         return code, js.get("ids", []), js.get("names", [])
-
