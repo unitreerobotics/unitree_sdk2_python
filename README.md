@@ -17,6 +17,58 @@ git clone https://github.com/unitreerobotics/unitree_sdk2_python.git
 cd unitree_sdk2_python
 pip3 install -e .
 ```
+
+### Installing from source with uv
+If you use [uv](https://docs.astral.sh/uv/) for Python environment management,
+execute the following commands in the terminal:
+```bash
+cd ~
+git clone https://github.com/unitreerobotics/unitree_sdk2_python.git
+cd unitree_sdk2_python
+uv sync
+```
+
+This creates a local `.venv`, installs the package in editable mode, and
+installs the dependencies declared in `pyproject.toml`. Run examples through the
+uv-managed environment:
+```bash
+uv run python ./example/helloworld/publisher.py
+```
+
+If the `cyclonedds` dependency cannot find your local CycloneDDS installation,
+set `CYCLONEDDS_HOME` before running `uv sync`:
+```bash
+export CYCLONEDDS_HOME=~/cyclonedds/install
+uv sync
+```
+
+### Recommended use from another project
+When using this SDK from another project, manage this repository as a Git
+submodule instead of copying the source tree. This keeps local changes separate
+from upstream updates and makes SDK version updates explicit.
+
+```bash
+git submodule add https://github.com/unitreerobotics/unitree_sdk2_python.git third_party/unitree_sdk2_python
+git submodule update --init --recursive
+```
+
+After cloning a project that already contains this SDK as a submodule, initialize
+the submodule before installing:
+```bash
+git submodule update --init --recursive
+uv sync --directory third_party/unitree_sdk2_python
+```
+
+To update the SDK later, fetch and check out the desired upstream revision inside
+the submodule, then commit the updated submodule pointer in the parent project:
+```bash
+cd third_party/unitree_sdk2_python
+git fetch origin
+git checkout <commit-or-tag>
+cd ../..
+git add third_party/unitree_sdk2_python
+git commit -m "Update unitree_sdk2_python submodule"
+```
 ## FAQ
 ##### 1. Error when `pip3 install -e .`:
 ```bash

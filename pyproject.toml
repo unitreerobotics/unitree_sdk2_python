@@ -1,3 +1,25 @@
 [build-system]
 requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "unitree_sdk2py"
+version = "1.0.1"
+description = "Unitree robot sdk version 2 for python"
+readme = "README.md"
+requires-python = ">=3.8"
+license = "BSD-3-Clause"
+authors = [
+  { name = "UnitreeRobotics", email = "unitree@unitree.com" }
+]
+dependencies = [
+  "cyclonedds==0.10.2",
+  "numpy",
+  "opencv-python",
+]
+
+[project.urls]
+"Source Code" = "https://github.com/unitreerobotics/unitree_sdk2_python"
+
+[tool.setuptools.packages.find]
+include = ["unitree_sdk2py", "unitree_sdk2py.*"]
