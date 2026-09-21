@@ -35,6 +35,14 @@ class AudioClient(Client):
         code, data = self._Call(ROBOT_API_ID_AUDIO_TTS, parameter)
         return code
 
+    def PlayStream(self, app_name: str, stream_id: str, pcm_data: list):
+        p = {}
+        p["app_name"] = app_name
+        p["stream_id"] = stream_id
+        parameter = json.dumps(p)
+        code, data = self._CallParamBinary(ROBOT_API_ID_AUDIO_START_PLAY, parameter, pcm_data)
+        return code
+
     def GetVolume(self):
         p = {}
         parameter = json.dumps(p)
