@@ -5,7 +5,7 @@ from unitree_sdk2py.core.channel import ChannelFactoryInitialize
 from unitree_sdk2py.go2.vui.vui_client import VuiClient
 
 if __name__ == "__main__":
-    ChannelFactoryInitialize(0, "enp2s0")
+    ChannelFactoryInitialize(0, "en7")
 
     client = VuiClient()
     client.SetTimeout(3.0)
@@ -35,7 +35,7 @@ if __name__ == "__main__":
 
     print("#################SetBrightness 0####################")
 
-    code  = client.SetBrightness(0)
+    code = client.SetBrightness(0)
 
     if code != 0:
         print("set brightness error. code:", code)
@@ -66,7 +66,7 @@ if __name__ == "__main__":
 
     print("#################SetVolume 0####################")
 
-    code  = client.SetVolume(0)
+    code = client.SetVolume(0)
 
     if code != 0:
         print("set volume error. code:", code)

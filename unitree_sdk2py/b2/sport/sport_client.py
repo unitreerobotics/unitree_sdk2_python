@@ -57,12 +57,22 @@ class SportClient(Client):
         self._RegistApi(ROBOT_SPORT_API_ID_CLASSICWALK, 0)
         self._RegistApi(ROBOT_SPORT_API_ID_FASTWALK, 0)
         self._RegistApi(ROBOT_SPORT_API_ID_FREEEULER, 0)
+        self._RegistApi(ROBOT_SPORT_API_ID_EULER, 0)
 
     def Damp(self):
         p = {}
         parameter = json.dumps(p)
         code, data = self._Call(ROBOT_SPORT_API_ID_DAMP, parameter)
         return code
+
+    def Euler(self, roll: float, pitch: float, yaw: float):  
+        p = {}  
+        p["r"] = roll  
+        p["p"] = pitch  
+        p["y"] = yaw  
+        parameter = json.dumps(p)
+        code = self._CallNoReply(ROBOT_SPORT_API_ID_EULER, parameter)  
+        return code        
 
     def BalanceStand(self):
         p = {}
