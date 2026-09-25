@@ -1,6 +1,6 @@
 import struct
-import cyclonedds
 import cyclonedds.idl as idl
+from fastcrc import crc32
 
 from .singleton import Singleton
 from ..idl.unitree_go.msg.dds_ import LowCmd_
@@ -8,9 +8,6 @@ from ..idl.unitree_go.msg.dds_ import LowState_
 
 from ..idl.unitree_hg.msg.dds_ import LowCmd_ as HGLowCmd_
 from ..idl.unitree_hg.msg.dds_ import LowState_ as HGLowState_
-import ctypes
-import os
-import platform
 
 class CRC(Singleton):
     def __init__(self):
@@ -25,17 +22,6 @@ class CRC(Singleton):
         self.__packFmtHGLowState = '<2I2B2xI' + '13fh2x' + 'B3x4f2hf7I' * 35 + '40B5I'
 
         
-        script_dir = os.path.dirname(os.path.abspath(__file__))
-        self.platform = platform.system()
-        if self.platform == "Linux":
-            if platform.machine()=="x86_64":
-                self.crc_lib = ctypes.CDLL(script_dir + '/lib/crc_amd64.so')
-            elif platform.machine()=="aarch64":
-                self.crc_lib = ctypes.CDLL(script_dir + '/lib/crc_aarch64.so')
-
-            self.crc_lib.crc32_core.argtypes = (ctypes.POINTER(ctypes.c_uint32), ctypes.c_uint32)
-            self.crc_lib.crc32_core.restype = ctypes.c_uint32
-    
     def Crc(self, msg: idl.IdlStruct):
         if msg.__idl_typename__ == 'unitree_go.msg.dds_.LowCmd_':
             return self.__Crc32(self.__PackLowCmd(msg))
@@ -192,37 +178,14 @@ class CRC(Singleton):
 
         return calcData
 
-    def _crc_py(self, data):
-        bit = 0
-        crc = 0xFFFFFFFF
-        polynomial = 0x04c11db7
-
-        for i in range(len(data)):
-            bit = 1 << 31
-            current = data[i]
-
-            for b in range(32):
-                if crc & 0x80000000:
-                    crc = (crc << 1) & 0xFFFFFFFF
-                    crc ^= polynomial
-                else:
-                    crc = (crc << 1) & 0xFFFFFFFF
-
-                if current & bit:
-                    crc ^= polynomial
-
-                bit >>= 1
-        
-        return crc
-
-    def _crc_ctypes(self, data):
-        uint32_array = (ctypes.c_uint32 * len(data))(*data)
-        length = len(data)
-        crc=self.crc_lib.crc32_core(uint32_array, length)
-        return crc
-
     def __Crc32(self, data):
-        if self.platform == "Linux":
-            return self._crc_ctypes(data)
-        else:
-            return self._crc_py(data)
+        return crc32.mpeg_2(words_to_bytes(data))
+
+
+def words_to_bytes(data):
+    """
+    Convert a list of 32-bit integers (data[i]) into bytes,
+    in big-endian order, matching the _crc_py bit processing.
+    """
+    return b"".join(word.to_bytes(4, byteorder="big") for word in data)
+
