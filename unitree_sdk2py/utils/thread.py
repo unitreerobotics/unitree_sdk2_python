@@ -76,7 +76,7 @@ class RecurrentThread(Thread):
     def __LoopFunc_0(self):
         while not self.__quit:
             try:
-                self.__loopTarget(*self.__args, **self.__kwargs)
+                self.__loopTarget(*self.__loopArgs, **self.__loopKwargs)
             except:
                 info = sys.exc_info() 
                 print(f"[RecurrentThread] target func raise exception: name={info[0].__name__}, args={str(info[1].args)}")
