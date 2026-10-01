@@ -293,7 +293,7 @@ class ChannelSubscriber:
         return self.__channel.Read(timeout)
 
 """
-" function ChannelFactoryInitialize. used to intialize channel everenment.
+" function ChannelFactoryInitialize. used to intialize channel environment.
 """
 def ChannelFactoryInitialize(id: int = 0, networkInterface: str = None):
     factory = ChannelFactory()
