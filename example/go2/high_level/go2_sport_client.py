@@ -92,6 +92,7 @@ if __name__ == "__main__":
         if test_option.id == 0:
             sport_client.Damp()
         elif test_option.id == 1:
+            sport_client.SwitchGait(0)
             sport_client.StandUp()
         elif test_option.id == 2:
             sport_client.StandDown()
